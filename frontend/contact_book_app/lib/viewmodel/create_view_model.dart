@@ -22,12 +22,13 @@ takeImage(XFile? photo) async {
 }
 
 
-createContact(ContactModel contactModel){
+createContact(ContactModel contactModel) async {
   contactModel.objectId = uuid.v4();
   contactModel.phone = phoneController.text;
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
-  contactService.createContact(contactModel);
+  await contactService.createContact(contactModel);
+  await updateContact();
   notifyListeners();
 }
 
@@ -35,7 +36,7 @@ handleCreate(ContactModel contactModel, BuildContext context) async {
   if (contactModel.name!.isNotEmpty &&
       contactModel.phone!.isNotEmpty) {
 
-      if(checkIfContactExist(contactModel)){
+      if(await checkIfContactExist(contactModel)){
         snackBarMessageCreateContactViewErrorPhone(context, "This Contact alredy exist");
        
       }else{
@@ -93,24 +94,24 @@ void clearForm(){
 }
 
 
-Future<List<ContactModel>>  getContacts() async {
+Future<void>  updateContact() async {
   var contact = await contactService.getContact();
-  contact.docs.forEach((doc){
-    contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();    
-  
+  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+  contacts.forEach((e){
+    print(e.name);
   });
+  notifyListeners();
 
-  return contacts;
 }
 
 
-bool checkIfContactExist(ContactModel contactModel){
-  getContacts();
+Future<bool> checkIfContactExist(ContactModel contactModel) async {
+  await updateContact();
   for(var contact in contacts){
     if(contact.name! == contactModel.name && contact.phone! == contactModel.phone!){
       return true;
     }
-   
+ 
   }
   return false;
 }

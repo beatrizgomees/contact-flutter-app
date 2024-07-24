@@ -1,3 +1,4 @@
+import 'package:contact_book_app/service/contact_service_impl.dart';
 import 'package:contact_book_app/viewmodel/create_view_model.dart';
 import 'package:contact_book_app/viewmodel/home_view_model.dart';
 import 'package:contact_book_app/views/create_contact_view.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext mcontext) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ContactServiceImpl()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreateViewModel())
       ],
