@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     homeViewModel.fetchContacts();
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
              return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-                itemCount: viewModel.contacts.length,
+                itemCount: viewModel.contactOrder.length,
                 itemBuilder: (context, index) {
                    var contact = viewModel.contacts[index];
                       return CardContactComponent(

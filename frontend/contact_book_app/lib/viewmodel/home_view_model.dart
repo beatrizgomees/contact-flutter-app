@@ -21,10 +21,20 @@ takeImage(XFile? photo) async {
 }
 
 
+Future<void> listContacts() async {
+ await fetchContacts();
+ notifyListeners();
+
+
+}
+
 Future<void> fetchContacts() async {
   var contact = await contactService.getContact();
+
   contacts = contact.docs.map((doc) => 
   ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+
+
  
 }
 
@@ -32,10 +42,10 @@ Future<void> fetchContacts() async {
 List<ContactModel> orderList(List<ContactModel> contactList){
   List<ContactModel> order = contactList.toList();
   order.sort((a,b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
-  order.forEach((contact){
+  for (var contact in order) {
     contactOrder.add(contact);
     notifyListeners();
-  });
+  }
   notifyListeners();
  
   return order;
