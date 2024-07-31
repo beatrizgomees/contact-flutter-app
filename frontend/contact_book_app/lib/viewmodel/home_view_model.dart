@@ -30,10 +30,11 @@ Future<void> listContacts() async {
 
 Future<void> fetchContacts() async {
   var contact = await contactService.getContact();
-  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
-  contacts = contacts.toSet().toList(); 
-  orderList(contacts);
-  notifyListeners();
+
+  contacts = contact.docs.map((doc) => 
+  ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+
+
  
 }
 
