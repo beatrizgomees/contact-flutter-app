@@ -50,9 +50,6 @@ class _CreateContactViewState extends State<CreateContactView> {
                             title: const Text("Galery"),
                             leading: const Icon(Icons.photo),
                             onTap: () async {
-                              
-                              
-                              Navigator.pop(context);
                             },
                           )
                         ],

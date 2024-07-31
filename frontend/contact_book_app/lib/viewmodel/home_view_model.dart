@@ -21,12 +21,7 @@ takeImage(XFile? photo) async {
 }
 
 
-Future<void> listContacts() async {
- await fetchContacts();
- notifyListeners();
 
-
-}
 
 Future<void> fetchContacts() async {
   var contact = await contactService.getContact();
