@@ -43,14 +43,25 @@ class _HomeViewState extends State<HomeView> {
           builder: (context, viewModel, _) {
           return SingleChildScrollView(
             child: FutureBuilder(
-              future: viewModel.fetchContacts(),
+            future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
               builder: (context, snapshot) {
+                   if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              // Handle errors
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            }
              return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
                 itemCount: viewModel.contacts.length,
                 itemBuilder: (context, index) {
-                   var contact = viewModel.contactOrder[index];
+                   var contact = viewModel.contacts[index];
                       return CardContactComponent(
                         email: contact.email!, 
                         name: contact.name!,
@@ -58,6 +69,12 @@ class _HomeViewState extends State<HomeView> {
                           },
                         );
                       }
+                      else{
+                         return const Center(
+                            child: Text('Something went wrong!'),
+                         );
+                      }
+              }
                     )
                   );
                 }
