@@ -1,5 +1,4 @@
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
-import 'package:contact_book_app/views/NotificationsPage.dart';
 import 'package:contact_book_app/views/ProfilePage.dart';
 import 'package:contact_book_app/views/create_contact_view.dart';
 import 'package:contact_book_app/views/home_view.dart';
@@ -24,7 +23,6 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> with TickerPr
 List<Widget> pages = [
       const HomeView(),
       const CreateContactView(),
-      const Notificationspage(),
       const Profilepage(),
   ];
   @override
@@ -55,10 +53,7 @@ List<Widget> pages = [
               selectedColor: Colors.white,
             ),
 
-            /// Search
-            CrystalNavigationBarItem(
-                icon: Icons.notifications,
-                selectedColor: Colors.white),
+           
 
             /// Profile
             CrystalNavigationBarItem(

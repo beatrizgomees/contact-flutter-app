@@ -5,26 +5,31 @@ import 'package:flutter/widgets.dart';
 class TextFormFieldComponent extends StatefulWidget {
   TextFormFieldComponent(
       {super.key,
+      this.isObscureText,
       required this.label,
       required this.keyboardType,
       required this.controllerText,
-      required this.icon,
+       this.icon,
       required this.value});
   String label;
-  Icon icon;
+  Icon? icon;
   TextInputType keyboardType;
   String value;
   TextEditingController controllerText;
   Key? keyValue;
+  bool? isObscureText;
 
   @override
   State<TextFormFieldComponent> createState() => _TextFormFieldComponentState();
 }
 
 class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
+  bool? visibilityPassowrd = false;
+  
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: visibilityPassowrd! == true ? widget.isObscureText = true : false,
       key: widget.keyValue,
       textInputAction:TextInputAction.next,
       controller: widget.controllerText,
@@ -32,6 +37,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
       onChanged: (value) {
         widget.value = value;
       },
+      
    
       decoration: InputDecoration(
         icon: widget.icon,
@@ -49,7 +55,23 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
           gapPadding: 50,
           borderRadius: BorderRadius.circular(10),
         ),
+        suffixIcon: widget.isObscureText == true ?
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              visibilityPassowrd = !visibilityPassowrd!;
+              print(visibilityPassowrd);
+            });
+          },
+          child: visibilityPassowrd! == false 
+          ? const Icon(Icons.visibility)
+          : const Icon(Icons.visibility_off),
+        )
+        : null
       ),
     );
   }
 }
+
+
+

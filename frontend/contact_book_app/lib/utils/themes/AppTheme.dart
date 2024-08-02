@@ -13,4 +13,10 @@ class AppTheme{
     color: Colors.white,
     fontSize: 13,
   );
+
+    static TextStyle get appBarFontTheme => TextStyle(
+    color: Colors.white,
+    fontSize: 15,
+  );
+
 }
