@@ -5,6 +5,7 @@ import 'package:contact_book_app/viewmodel/home_view_model.dart';
 import 'package:contact_book_app/views/NotificationsPage.dart';
 import 'package:contact_book_app/views/create_contact_view.dart';
 import 'package:contact_book_app/views/home_view.dart';
+import 'package:contact_book_app/views/login_view.dart';
 import 'package:contact_book_app/views/navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         //initialRoute: '/home',
         navigatorKey: navigatorKey,
          routes: {
+          '/login': (context) => const LoginView(),
           '/home': (context) => const HomeView(),
           '/create': (context) => const CreateContactView(),
           '/notifications': (context) => const Notificationspage()
@@ -69,7 +71,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const NavigationBottomBar()),
+          home: LoginView()),
     );
   }
 }
