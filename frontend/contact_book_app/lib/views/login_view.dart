@@ -130,7 +130,6 @@ _buildBodySectionLoginView({
 // Widgets and components LoginView
 
 _buildLoginButton(BuildContext context, LoginViewModel viewModel){
-  bool isLogin = true;
   return GestureDetector(
     onTap: () async {
      await viewModel.signInWithEmailAndPassword();
@@ -170,9 +169,18 @@ _buildTopSectionLoginView(BuildContext context){
           children: [
             const Row(
               children: [
-                Text("Login",   style: TextStyle(fontSize: 35, color: Colors.white),),
+                Text("Login",   
+                style: TextStyle(
+                  fontSize: 35, 
+                  color: Colors.white,
+                  ),
+                ),
                 Text(" Account", 
-                style: TextStyle(fontSize: 35, fontStyle: FontStyle.italic, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 35, 
+                  fontStyle: FontStyle.italic, 
+                  color: Colors.white,
+                  ),
                 ),
                
               ],

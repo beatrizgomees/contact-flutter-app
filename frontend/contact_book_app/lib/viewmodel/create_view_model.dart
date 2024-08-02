@@ -2,6 +2,7 @@ import 'package:contact_book_app/components/snackbar_component.dart';
 import 'package:contact_book_app/model/contact_model.dart';
 import 'package:contact_book_app/service/contact_service_impl.dart';
 import 'package:contact_book_app/service/image_service.dart';
+import 'package:contact_book_app/service/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -16,6 +17,7 @@ var imageService = ImageService();
 var contactService = ContactServiceImpl();
 var uuid = Uuid();
 List<ContactModel> contacts = [];
+NotificationsService notificationsService = NotificationsService();
 
 takeImage(XFile? photo) async {
  imageService.takeImage(photo);
@@ -78,6 +80,11 @@ ContactModel contactModel = ContactModel(
   email: emailController.text,
   favorite: false,
 );
+
+NotificationsService.showSimpleNotification(
+  title: 'Contato criado com sucesso', 
+  body: 'Fale agor com ${contactModel.name}', 
+ payload: '');
   
 phoneController.text.isEmpty 
 ? snackBarMessageCreateContactViewErrorPhone(context, "Withou Phone! Please, put the phone ") 

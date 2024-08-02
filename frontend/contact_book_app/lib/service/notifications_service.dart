@@ -1,14 +1,20 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_book_app/main.dart';
+import 'package:contact_book_app/service/auth_service_impl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class NotificationsService{
   static final _firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => _firebaseAuth.currentUser;
+  AuthServiceImpl authServiceImpl = AuthServiceImpl();
 
   static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  static Future init() async {
+   Future init() async {
     await _firebaseMessaging.requestPermission(
       alert: true,
       announcement: true,
@@ -18,10 +24,27 @@ class NotificationsService{
       provisional: true,
       sound: true,
     );
+ saveTokentoFirestore();
+}
+
+ Future saveTokentoFirestore() async {
   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   final fCMToken = await _firebaseMessaging.getToken();
   print('Token: $fCMToken');
+  bool isUserLoggedin = await AuthServiceImpl().isLoggedIn();
+  if (isUserLoggedin) {
+    saveUserToken(fCMToken!);
+    print("save to firestore");
+
+  }
+   _firebaseMessaging.onTokenRefresh.listen((event) async {
+    if (isUserLoggedin) {
+      saveUserToken(fCMToken!);
+      print("save to firestore");
+      }
+    });
 }
+
 
 static void onMessageOpenedApp(){
 FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
@@ -48,6 +71,23 @@ static void receivedNotificationMessageOnForeground(){
 Future firebaseBackgroundMessage(RemoteMessage message) async {
   if(message.notification != null){
     print("Some notification received in background...");
+  }
+}
+
+ Future saveUserToken(String token) async {
+  Map<String, dynamic> data = {
+    "email": currentUser!.email,
+    "token": token,
+  };
+  try{
+    await FirebaseFirestore.instance
+    .collection("user_data")
+    .doc(currentUser!.uid)
+    .set(data);
+    print('Document Added');
+  }catch (e){
+    print('Error in saving to firestore');
+    print(e.toString());
   }
 }
 

@@ -5,4 +5,5 @@ abstract class AuthService{
   Future<void> createUserWithEmailAndPassword({required String email, required String password});
 
   Future<void> signOut();
+  Future<bool> isLoggedIn();
 }

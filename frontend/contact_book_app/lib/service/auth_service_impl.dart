@@ -31,5 +31,11 @@ class AuthServiceImpl implements AuthService{
    await _firebaseAuth.signOut();
   }
 
+  @override
+  Future<bool> isLoggedIn() async {
+  var user = FirebaseAuth.instance.currentUser;
+  return user != null;
+  }
+
   
 }
