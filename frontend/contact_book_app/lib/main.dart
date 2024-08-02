@@ -1,7 +1,9 @@
+import 'package:contact_book_app/service/auth_service_impl.dart';
 import 'package:contact_book_app/service/contact_service_impl.dart';
 import 'package:contact_book_app/service/notifications_service.dart';
 import 'package:contact_book_app/viewmodel/create_view_model.dart';
 import 'package:contact_book_app/viewmodel/home_view_model.dart';
+import 'package:contact_book_app/viewmodel/login_view_model.dart';
 import 'package:contact_book_app/views/NotificationsPage.dart';
 import 'package:contact_book_app/views/create_contact_view.dart';
 import 'package:contact_book_app/views/home_view.dart';
@@ -19,6 +21,7 @@ void main() async {
   await NotificationsService.localNotificationsInit();
   NotificationsService.onMessageOpenedApp();
 
+
   //to handle foreground notifications
   NotificationsService.receivedNotificationMessageOnForeground();
   
@@ -29,7 +32,7 @@ void main() async {
 
   if(message != null){
     print("Launched from terminated state");
-    Future.delayed(Duration(seconds: 1), (){
+    Future.delayed(const Duration(seconds: 1), (){
       navigatorKey.currentState!.pushNamed("/notifications", arguments: message);
     });
   }
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext mcontext) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => ContactServiceImpl()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreateViewModel())
@@ -71,7 +75,16 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: LoginView()),
+          home: StreamBuilder(
+            stream: AuthServiceImpl().authStateChanges,
+            builder: (context, snapshot) {
+              if(snapshot.hasData){
+                return const NavigationBottomBar();
+              }else{
+                return const LoginView();
+              }
+            },
+          )),
     );
   }
 }

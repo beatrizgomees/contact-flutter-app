@@ -39,7 +39,10 @@ class _HomeViewState extends State<HomeView> {
           },
           ),
         ],
-        leading: Text("Contacts", style: AppTheme.darkFontStyleContactName),
+        leading: Text(
+          "Contacts", 
+          style: AppTheme.darkFontStyleContactName,
+          ),
         ),
         floatingActionButton:  FloatingActionButton.extended(onPressed: () {
           Navigator.of(context).push(
@@ -92,7 +95,9 @@ class _HomeViewState extends State<HomeView> {
                     )
                   );
                 }
-              )
+              ),   
+              
+               
                 )
               );
             }

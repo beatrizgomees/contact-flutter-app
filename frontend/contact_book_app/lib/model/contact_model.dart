@@ -42,17 +42,17 @@ class ContactModel {
   String? get email => _email;
   set email(String? email) => _email = email;
   
-    factory ContactModel.fromMap(Map<String, dynamic> data) {
-    return ContactModel(
-      objectId: data['id'],
-      name: data['name'],
-      phone: data['phone'],
-      photo: data['photo'],
-      email: data['email'],
-      favorite: data['favorite']
-      
-    );
-  }
+  factory ContactModel.fromMap(Map<String, dynamic> data) {
+  return ContactModel(
+    objectId: data['id'],
+    name: data['name'],
+    phone: data['phone'],
+    photo: data['photo'],
+    email: data['email'],
+    favorite: data['favorite']
+    
+  );
+}
 
   Map<String, dynamic> toMap() {
     return {
