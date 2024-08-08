@@ -1,11 +1,10 @@
-import 'package:contact_book_app/interfaces/auth_service.dart';
+import 'package:contact_book_app/features/auth/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServiceImpl implements AuthService{
+  
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   User? get currentUser => _firebaseAuth.currentUser;
-
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
   
   @override
@@ -19,7 +18,11 @@ class AuthServiceImpl implements AuthService{
   }
   
   @override
-  Future<void> createUserWithEmailAndPassword({required String email, required String password}) async {
+  Future<void> createUserWithEmailAndPassword({
+    required String email, 
+    required String password,
+    
+    }) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
       email: email, 
       password: password,

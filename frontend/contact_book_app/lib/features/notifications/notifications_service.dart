@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_book_app/main.dart';
-import 'package:contact_book_app/service/auth_service_impl.dart';
+import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/model/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/contact_model.dart';
 
 abstract class ContactService {
   Future<QuerySnapshot> getContact();

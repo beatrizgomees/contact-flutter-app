@@ -1,7 +1,7 @@
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
-import 'package:contact_book_app/views/ProfilePage.dart';
-import 'package:contact_book_app/views/create_contact_view.dart';
-import 'package:contact_book_app/views/home_view.dart';
+import 'package:contact_book_app/features/profile/ProfilePage.dart';
+import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
+import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
 

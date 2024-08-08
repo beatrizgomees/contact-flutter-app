@@ -1,14 +1,16 @@
-import 'package:contact_book_app/service/auth_service_impl.dart';
-import 'package:contact_book_app/service/contact_service_impl.dart';
-import 'package:contact_book_app/service/notifications_service.dart';
-import 'package:contact_book_app/viewmodel/create_view_model.dart';
-import 'package:contact_book_app/viewmodel/home_view_model.dart';
-import 'package:contact_book_app/viewmodel/login_view_model.dart';
-import 'package:contact_book_app/views/NotificationsPage.dart';
-import 'package:contact_book_app/views/create_contact_view.dart';
-import 'package:contact_book_app/views/home_view.dart';
-import 'package:contact_book_app/views/login_view.dart';
-import 'package:contact_book_app/views/navigation_bar.dart';
+import 'package:contact_book_app/features/auth/auth_service_impl.dart';
+import 'package:contact_book_app/features/contact_crud/contact_service_impl.dart';
+import 'package:contact_book_app/features/notifications/notifications_service.dart';
+import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
+import 'package:contact_book_app/features/home/home_view_model.dart';
+import 'package:contact_book_app/features/auth/login_view_model.dart';
+import 'package:contact_book_app/features/notifications/NotificationsPage.dart';
+import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
+import 'package:contact_book_app/features/home/home_view.dart';
+import 'package:contact_book_app/features/auth/login_view.dart';
+import 'package:contact_book_app/features/register/register_view.dart';
+import 'package:contact_book_app/features/register/register_view_model.dart';
+import 'package:contact_book_app/ui/widgets/navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +58,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
-        ChangeNotifierProvider(create: (_) => ContactServiceImpl()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
-        ChangeNotifierProvider(create: (_) => CreateViewModel())
+        ChangeNotifierProvider(create: (_) => CreateViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterViewModel())
       ],
       child: MaterialApp(
         //initialRoute: '/home',
@@ -67,7 +69,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginView(),
           '/home': (context) => const HomeView(),
           '/create': (context) => const CreateContactView(),
-          '/notifications': (context) => const Notificationspage()
+          '/notifications': (context) => const Notificationspage(),
+          '/register': (context) => const RegisterView()
           },
         
           title: 'Flutter Demo',

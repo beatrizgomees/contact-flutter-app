@@ -29,7 +29,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: visibilityPassowrd! == true ? widget.isObscureText = true : false,
+      obscureText: visibilityPassowrd! == false  && widget.label == "Password" ? widget.isObscureText = true : false,
       key: widget.keyValue,
       textInputAction:TextInputAction.next,
       controller: widget.controllerText,
@@ -38,7 +38,6 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
         widget.value = value;
       },
       
-   
       decoration: InputDecoration(
         icon: widget.icon,
         iconColor: Colors.white,
@@ -51,7 +50,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
           borderRadius: BorderRadius.circular(10),
         ),
           focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),  // Cor do contorno quando está focado
+          borderSide: const BorderSide(color: Colors.blue),  // Cor do contorno quando está focado
           gapPadding: 50,
           borderRadius: BorderRadius.circular(10),
         ),
@@ -64,10 +63,13 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
             });
           },
           child: visibilityPassowrd! == false 
-          ? const Icon(Icons.visibility)
-          : const Icon(Icons.visibility_off),
+          ? const Icon(Icons.visibility_off)
+          : const Icon(Icons.visibility),
         )
-        : null
+        : widget.label == "Email Address" ? const Icon(Icons.email) 
+        : widget.label == "Phone" ? const Icon(Icons.phone) 
+        : widget.label == "Name" ? const Icon(Icons.abc)
+        : const Icon(Icons.account_balance)
       ),
     );
   }

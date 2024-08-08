@@ -1,10 +1,12 @@
-import 'package:contact_book_app/components/button_transparent_component.dart';
-import 'package:contact_book_app/components/text_form_field_component.dart';
-import 'package:contact_book_app/service/auth_service_impl.dart';
-import 'package:contact_book_app/viewmodel/login_view_model.dart';
+import 'package:contact_book_app/ui/commum_components/button_transparent_component.dart';
+import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
+import 'package:contact_book_app/features/auth/auth_service_impl.dart';
+import 'package:contact_book_app/features/auth/login_view_model.dart';
+import 'package:contact_book_app/ui/commum_components/top_section_component.dart';
+import 'package:contact_book_app/ui/widgets/button_register_or_login_widget.dart';
+import 'package:contact_book_app/ui/widgets/sign_with_external_account_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
@@ -26,7 +28,11 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.white,
-      appBar:  _buildTopSectionLoginView(context),
+      appBar: TopSectionComponent(
+        titleSection: "Login", 
+        titleButtonLoginOrRegister: "Haven't account yet?",
+        routeName: "/register",
+        ),
       body: SingleChildScrollView(
         child: Consumer<LoginViewModel>(
           builder: (context, viewModel, _) {
@@ -71,7 +77,13 @@ _buildBodySectionLoginView({
     
             Padding(
               padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
-              child: _buildLoginButton(context, viewModel)
+              child: ButtonRegisterOrLoginWidget(
+                viewModel: viewModel, 
+                labelButton: "Login Now!",
+                onTap: () async {
+                 await viewModel.signInWithEmailAndPassword(context);
+                },
+                ),
             ),
     
             Padding(
@@ -93,7 +105,7 @@ _buildBodySectionLoginView({
     
             const Text("Or Continue with", style: TextStyle(
               fontWeight: FontWeight.bold),
-              ),
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +128,6 @@ _buildBodySectionLoginView({
                   widthImage: 20,
                   ),
                
-              
               ],
             )
         ],
@@ -129,85 +140,8 @@ _buildBodySectionLoginView({
 
 // Widgets and components LoginView
 
-_buildLoginButton(BuildContext context, LoginViewModel viewModel){
-  return GestureDetector(
-    onTap: () async {
-     await viewModel.signInWithEmailAndPassword();
-    },
-    child: Container(
-    height: 60,
-    width: MediaQuery.of(context).size.width ,
-    decoration: BoxDecoration(
-      color: Colors.black,
-      borderRadius: BorderRadius.circular(50)
-    ),
-    child: const Padding(
-      padding: EdgeInsets.all(15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Login Now!", style: TextStyle(
-            color: Colors.white,
-            fontSize: 18
-          ),
-          ),
-          Icon(Icons.arrow_forward, color: Colors.white, size: 25)
-        ],
-      ),
-    ),
-    ),
-  );
-}
 
-_buildTopSectionLoginView(BuildContext context){
-  return AppBar(
-        backgroundColor: Colors.black,
-        toolbarHeight: MediaQuery.of(context).size.height / 4,
-        title:  Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Row(
-              children: [
-                Text("Login",   
-                style: TextStyle(
-                  fontSize: 35, 
-                  color: Colors.white,
-                  ),
-                ),
-                Text(" Account", 
-                style: TextStyle(
-                  fontSize: 35, 
-                  fontStyle: FontStyle.italic, 
-                  color: Colors.white,
-                  ),
-                ),
-               
-              ],
-            ),
-            const SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {
-                
-              },
-              child: ButtonTransparentComponent(
-                height: 35,
-                width: 200,
-                border: 50,
-                colorBorder: Colors.white,
-                colortitle: Colors.white,
-                title: "Haven't account yet?",
-                icon: Icons.arrow_forward,
-                iconSize: 20,
-                colorIcon: Colors.white,
-                sizeTitle: 16,
 
-                ),
-            )
-          ],
-        ),
-      );
-}
 
 _buildSignWithExternalAccount({
 required BuildContext context,  
@@ -217,35 +151,14 @@ required double widthImage,
 required String title,  
 required Color colorName}){
 
-  return GestureDetector(
-    onTap: () {},
-    child: Container(
-        height: 40,
-        width: 150,
-        decoration:  BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-    
-        ),
-        child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(pathImage, 
-            height: heightImage, 
-            width: widthImage),
-            Text(title, 
-            style: TextStyle(
-              color: colorName,
-              fontWeight: FontWeight.bold
-              ),
-              ),
-          ],
-        ),
-        ),
-      ),
+  return  SignWithExternalAccountWidget(
+  colorName:colorName,
+  title: title,
+  pathImage: pathImage,
+  heightImage: heightImage,
+  widthImage: widthImage,
   );
+                  
 }
 
 

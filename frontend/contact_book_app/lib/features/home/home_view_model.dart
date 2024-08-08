@@ -1,6 +1,6 @@
-import 'package:contact_book_app/model/contact_model.dart';
-import 'package:contact_book_app/service/contact_service_impl.dart';
-import 'package:contact_book_app/service/image_service.dart';
+import 'package:contact_book_app/features/contact_crud/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/contact_service_impl.dart';
+import 'package:contact_book_app/features/contact_crud/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

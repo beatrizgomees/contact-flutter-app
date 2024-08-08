@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 
 class ImageService extends ChangeNotifier{
+  
   takeImage(XFile? photo) async {
     final ImagePicker imagePicker = ImagePicker();
     photo = await imagePicker.pickImage(source: ImageSource.camera);
