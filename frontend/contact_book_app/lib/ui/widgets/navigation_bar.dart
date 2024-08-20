@@ -1,8 +1,11 @@
+import 'package:contact_book_app/features/chat/chat_view.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/profile/ProfilePage.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBottomBar extends StatefulWidget {
@@ -24,6 +27,7 @@ List<Widget> pages = [
       const HomeView(),
       const CreateContactView(),
       const Profilepage(),
+      
   ];
   @override
   Widget build(BuildContext context) {
@@ -33,38 +37,33 @@ List<Widget> pages = [
       extendBody: true,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 5),
-        child: CrystalNavigationBar(
-          currentIndex: _SelectedTab.values.indexOf(_selectedTab),
-          height: 10,
-          // indicatorColor: Colors.blue,
-          unselectedItemColor: Colors.white70,
+        child: CurvedNavigationBar(
           backgroundColor: Colors.black.withOpacity(0.1),
           onTap: _handleIndexChanged,
-          items: [
-            /// Home
-            CrystalNavigationBarItem(
-              icon: Icons.home,
-              selectedColor: Colors.white,
-            ),
-
-            /// Favourite
-            CrystalNavigationBarItem(
-              icon: Icons.chat_bubble,
-              selectedColor: Colors.white,
-            ),
-
-           
-
-            /// Profile
-            CrystalNavigationBarItem(
-              icon: Icons.person_2,
-              selectedColor: Colors.white,
-            ),
-          ],
+          items: const [
+            CurvedNavigationBarItem(
+                child: Icon(Icons.chat_bubble_outline),
+                label: 'Chat',
+              ),
+              CurvedNavigationBarItem(
+                child: Icon(Icons.call_end_outlined),
+                label: 'Call',
+              ),
+              
+              CurvedNavigationBarItem(
+                child: Icon(Icons.newspaper),
+                label: 'Feed',
+              ),
+              CurvedNavigationBarItem(
+                child: Icon(Icons.perm_identity),
+                label: 'Personal',
+              ),
+            ],
+         
         ),
       ),
     );
   }
 }
 
-enum _SelectedTab { home, chat, notifications, person }
+enum _SelectedTab { home, create, chat, person }

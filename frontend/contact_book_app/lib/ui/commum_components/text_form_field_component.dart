@@ -1,3 +1,4 @@
+import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -40,7 +41,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
       
       decoration: InputDecoration(
         icon: widget.icon,
-        iconColor: Colors.white,
+        iconColor: AppTheme.detailsColor,
         filled: true,
         fillColor: Colors.white,
         hintText: widget.label,

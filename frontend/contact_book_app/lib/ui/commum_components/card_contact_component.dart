@@ -1,3 +1,4 @@
+import 'package:contact_book_app/ui/widgets/favorite_button_widget.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _CardContactComponentState extends State<CardContactComponent> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-    padding:  EdgeInsets.only(top: 20.0, bottom: 20),
+    padding:  EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
     child: Container(
       width: MediaQuery.of(context).size.width,
       height: 80,
@@ -28,38 +29,33 @@ class _CardContactComponentState extends State<CardContactComponent> {
         borderRadius: BorderRadius.circular(50),
         //border: Border.all(color: Colors.white)
       ),
-      child:  Row(
+      child:   Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+           Padding(
             padding: EdgeInsets.all(8.0),
             child: CircleAvatar(
               minRadius: 30,
+              child: ClipOval(
+                child: Image.asset("assets/images/perfil.jpg",    fit: BoxFit.cover,
+                  width: 60, 
+                  height: 60,   
+                  ),
+                ),
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.name}", style: AppTheme.darkFontStyleContactName,),
-                Text("${widget.email}", style: AppTheme.darkFontStyleContatcSubtitle,
+              Text("${widget.name}", style: AppTheme.whiteFontStyleContactName,),
+                Text("${widget.email}", style: AppTheme.whiteFontStyleContatcSubtitle,
                 ),
 
             ],
           ),
-           IconButton.filledTonal(
-             style: IconButton.styleFrom(
-               backgroundColor: Colors.white
-             ),
-           icon: Icon(Icons.star, 
-              color: favorite ? Colors.yellowAccent.shade700 : Colors.grey,
-           ),
-           onPressed: () {
-            
-          
-           }, 
-           )
+           FavoriteIconButton()
           
         ],
       ),

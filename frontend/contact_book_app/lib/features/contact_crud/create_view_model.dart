@@ -38,20 +38,25 @@ handleCreate(ContactModel contactModel, BuildContext context) async {
   if (contactModel.name!.isNotEmpty &&
       contactModel.phone!.isNotEmpty) {
 
-      if(await checkIfContactExist(contactModel)){
-        snackBarMessageCreateContactViewErrorPhone(context, "This Contact alredy exist");
-       
+      if(checkIfContactExist(contactModel, context)){
+         snackBarMessageCreateContactViewError(context, "Error in create contact");
+
       }else{
         await createContact(contactModel);
+        actionCreate(context);
         notifyListeners();
         clearForm();
         snackBarMessageCreateContactSucess(context);
+
       }
+  
+        
       
+    }
+
+
       
-      }else{
-        snackBarMessageCreateContactViewErrorPhone(context, "");
-      }
+     
   }
 
 
@@ -64,7 +69,7 @@ void snackBarMessageCreateContactSucess(BuildContext context){
       );
 }
 
-void snackBarMessageCreateContactViewErrorPhone(BuildContext context, String message){
+void snackBarMessageCreateContactViewError(BuildContext context, String message){
     ScaffoldMessenger.of(context).showSnackBar(
         SnackbarComponent(
           "$message",
@@ -74,21 +79,21 @@ void snackBarMessageCreateContactViewErrorPhone(BuildContext context, String mes
 }
 
 void actionCreate(BuildContext context){
-ContactModel contactModel = ContactModel(
-  name: nameController.text,
-  phone: phoneController.text,
-  email: emailController.text,
-  favorite: false,
-);
+  ContactModel contactModel = ContactModel(
+    name: nameController.text,
+    phone: phoneController.text,
+    email: emailController.text,
+    favorite: false,
+  );
 
-NotificationsService.showSimpleNotification(
-  title: 'Contato criado com sucesso', 
-  body: 'Fale agor com ${contactModel.name}', 
- payload: '');
+  NotificationsService.showSimpleNotification(
+    title: 'Contato criado com sucesso', 
+    body: 'Fale agor com ${contactModel.name}', 
+  payload: '');
   
-phoneController.text.isEmpty 
-? snackBarMessageCreateContactViewErrorPhone(context, "Withou Phone! Please, put the phone ") 
-: handleCreate(contactModel, context);
+  phoneController.text.isEmpty 
+  ? snackBarMessageCreateContactViewError(context, "Withou Phone! Please, put the phone ") 
+  : handleCreate(contactModel, context);
                     
                 
 
@@ -111,18 +116,26 @@ Future<void>  updateContact() async {
 
 }
 
-
-
-Future<bool> checkIfContactExist(ContactModel contactModel) async {
-  await updateContact();
+bool checkIfContactExist(ContactModel contactModel, BuildContext context){
   for(var contact in contacts){
-    if(contact.name! == contactModel.name && contact.phone! == contactModel.phone!){
+    if(contact.name! == contactModel.name){
+      snackBarMessageCreateContactViewError(context, "The name: ${contact.name} alredy exist");
+      return true;
+  
+    }
+    if(contact.email! == contactModel.email){
+      snackBarMessageCreateContactViewError(context, "The email: ${contact.email} alredy exist");
       return true;
     }
- 
+    if(contact.phone! == contactModel.phone){
+      snackBarMessageCreateContactViewError(context, "The phone: ${contact.phone} alredy exist");
+      return true;
   }
-  return false;
+
+  
 }
 
+return false;
+}
  
 }

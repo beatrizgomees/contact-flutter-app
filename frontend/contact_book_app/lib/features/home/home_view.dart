@@ -1,4 +1,6 @@
+import 'package:contact_book_app/features/chat/chat_view.dart';
 import 'package:contact_book_app/ui/commum_components/card_contact_component.dart';
+import 'package:contact_book_app/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
@@ -26,40 +28,61 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: _buildTopSectionHomeView(context),
       floatingActionButton: _buildFloatButtonCreateContact(context),
-    
-      backgroundColor: AppTheme.backgroundPrincipalColor,
+      backgroundColor: Colors.white,
       body: Consumer<HomeViewModel>(
-        builder: (context, viewModel, _) {
-        return SingleChildScrollView(
-          child: _buildListContact(context, viewModel)
+         builder: (context, viewModel, _) {
+         return SingleChildScrollView(
+           child: _buildListContact(context, viewModel)
                 );
-              }
-            ),   
+               }
+             ),   
           );
         }
       }
 
 _buildTopSectionHomeView(BuildContext context){
   return AppBar(
-          leadingWidth: 100,
-          backgroundColor: AppTheme.backgroundPrincipalColor,
-          actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications), 
-            color: Colors.white,
-             onPressed: () {
-              Navigator.pushNamed(context, '/notifications');
-          },
+    title: const Text("Chats"),
+    toolbarHeight: 150,
+    backgroundColor: Colors.black,
+    leadingWidth: MediaQuery.of(context).size.width,
+    actions: [
+      IconButton(onPressed: () {}, icon: const Icon(Icons.search,  color: Colors.white,))
+    ],
+    leading:Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(child: Text("Chats", style: TextStyle(fontSize: 20, color: Colors.white),)),
+           IconButton(onPressed: () {}, icon: const Icon(Icons.menu),
+          iconSize: 30.0,
+          color: Colors.white,
+           ),
+            Stack(
+              children:[
+               SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     FilterButton(label: "All"),
+                     FilterButton(label: "Favorites"),
+                     FilterButton(label: "Groups"),
+                   ],
+                 ),
+               )
+
+            ],
           ),
-        ],
-        leading: Text(
-          "Contacts", 
-          style: AppTheme.darkFontStyleContactName,
-          ),
-        );
+           
+          ],
+        ),
+      ),
+  );
 }
 
 _buildFloatButtonCreateContact(BuildContext context){
@@ -71,7 +94,7 @@ _buildFloatButtonCreateContact(BuildContext context){
                 ),
               );
         }, label: Text('Add Contact', 
-            style: AppTheme.darkFontStyleContatcSubtitle),
+            style: AppTheme.whiteFontStyleContactName),
             backgroundColor: Colors.blue.shade700,
             icon: const Icon(Icons.add_call, color: Colors.white),
             );
@@ -98,21 +121,44 @@ Widget _getData(var snapshot){
 
 _buildListContact(BuildContext context, HomeViewModel viewModel){
   return FutureBuilder(
-  future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
-  builder: (context, snapshot) {
-  _getData(snapshot);
-  return ListView.builder(
-  shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-  itemCount: viewModel.contacts.length,
-  itemBuilder: (context, index) {
-    var contact = viewModel.contacts[index];
-      return CardContactComponent(
-        email: contact.email!, 
-        name: contact.name!,
+    future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
+    builder: (context, snapshot) {
+    _getData(snapshot);
+    return ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: viewModel.contacts.length,
+    itemBuilder: (context, index) {
+      var contact = viewModel.contacts[index];
+        return GestureDetector(
+
+          
+          child: Dismissible(
+            key: Key(viewModel.contacts[index].toString()),
+            background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
+            secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
+            onDismissed: (direction) {
+               ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Item ${viewModel.contacts[index].toString()} arquivado')),
+              );
+              
+            },
+            child: CardContactComponent(
+              email: contact.email!, 
+              name: contact.name!,
+              ),
+          ),
+            onTap: () {
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatView(contactModel: contact),
+                  ),
+                );
+            },
         );
-          },
-        );
-      }
+            },
+          );
+        }
     );
 }

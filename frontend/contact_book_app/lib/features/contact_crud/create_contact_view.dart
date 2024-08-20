@@ -1,3 +1,4 @@
+import 'package:contact_book_app/features/contact_crud/contact_model.dart';
 import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
@@ -24,83 +25,96 @@ class _CreateContactViewState extends State<CreateContactView> {
         child: Consumer<CreateViewModel>(
           builder: (context, viewModel, _) {
           return SingleChildScrollView(
-            child: Column(
-              children: [
-                const CircleAvatar(
-                  minRadius: 50,
-                  maxRadius: 100,
-                  backgroundColor: Colors.white,
-                ),
-              const SizedBox(height: 20),
-                      
-              ElevatedButton(
-                onPressed: () async {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return Wrap(
-                        children: [
-                          ListTile(
-                              title: const Text("Camera"),
-                              leading: const Icon(Icons.camera),
-                              onTap: () async {
-                              viewModel.takeImage(null);
-                              },),
-                          ListTile(
-                            title: const Text("Galery"),
-                            leading: const Icon(Icons.photo),
-                            onTap: () async {
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
-                },
-              child: const Text("Select Image"),
-              ),
-              const SizedBox(height: 20),
-                      
-              TextFormFieldComponent(
-                key: const Key('name_key'),
-                keyboardType: TextInputType.name,
-                label: "Name",
-                controllerText: viewModel.nameController,
-                value: viewModel.nameController.text,
-                icon: const Icon(Icons.person),
-              ),
-              const SizedBox(height: 20),
-                    
-              TextFormFieldComponent(
-                key: const Key("phone_key"),
-                label: "Phone Number", 
-                keyboardType: TextInputType.phone, 
-                controllerText: viewModel.phoneController, 
-                icon: const Icon(Icons.phone_android_outlined), 
-                value: viewModel.phoneController.text,
-                ),
-               const SizedBox(height: 20),
-            
-              TextFormFieldComponent(
-                  key: const Key("email_key"),
-                  keyboardType: TextInputType.emailAddress,
-                  label: "Email",
-                  controllerText: viewModel.emailController,
-                  value: viewModel.emailController.text,
-                  icon: const Icon(Icons.email),
-                ),
-                 
-            
-            const SizedBox(height: 50),
-             ElevatedButton.icon(
-                  onPressed: () {
-                    viewModel.actionCreate(context);
-                  },
-                  label: const Text("Create"),
-                  icon: const Icon(Icons.create_rounded),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    minRadius: 50,
+                    maxRadius: 100,
+                    backgroundColor: Colors.grey,
                   ),
-                ],
-              ),
+                const SizedBox(height: 20),
+                        
+                ElevatedButton(
+                  onPressed: () async {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Wrap(
+                          children: [
+                            ListTile(
+                                title: const Text("Camera"),
+                                leading: const Icon(Icons.camera),
+                                onTap: () async {
+                                viewModel.takeImage(null);
+                                },),
+                            ListTile(
+                              title: const Text("Galery"),
+                              leading: const Icon(Icons.photo),
+                              onTap: () async {
+                              },
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
+                child: const Text("Select Image"),
+                ),
+                const SizedBox(height: 20),
+                        
+                TextFormFieldComponent(
+                  key: const Key('name_key'),
+                  keyboardType: TextInputType.name,
+                  label: "Name",
+                  controllerText: viewModel.nameController,
+                  value: viewModel.nameController.text,
+                  icon: const Icon(Icons.person),
+                ),
+                const SizedBox(height: 20),
+                      
+                TextFormFieldComponent(
+                  key: const Key("phone_key"),
+                  label: "Phone Number", 
+                  keyboardType: TextInputType.phone, 
+                  controllerText: viewModel.phoneController, 
+                  icon: const Icon(Icons.phone_android_outlined), 
+                  value: viewModel.phoneController.text,
+                  ),
+                 const SizedBox(height: 20),
+              
+                TextFormFieldComponent(
+                    key: const Key("email_key"),
+                    keyboardType: TextInputType.emailAddress,
+                    label: "Email",
+                    controllerText: viewModel.emailController,
+                    value: viewModel.emailController.text,
+                    icon: const Icon(Icons.email),
+                  ),
+                   
+              
+              const SizedBox(height: 50),
+               ElevatedButton.icon(
+                    onPressed: () {
+                       ContactModel contactModel = ContactModel(
+                        name: viewModel.nameController.text,
+                        phone: viewModel.phoneController.text,
+                        email: viewModel.emailController.text,
+                        favorite: false,
+                        );
+                      viewModel.handleCreate(contactModel, context);
+                    },
+                    label: const Text("Create", style: TextStyle(color: Colors.black),),
+                    icon: const Icon(Icons.create_rounded, color: Colors.black,),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.detailsColor, 
+                       
+                      ),
+                    ),
+                  ],
+                ),
+            ),
           );
           },
         ),
