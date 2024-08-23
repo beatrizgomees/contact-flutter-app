@@ -1,13 +1,12 @@
 import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/features/contact_crud/contact_service.dart';
-import 'package:contact_book_app/features/contact_crud/contact_model.dart';
-import 'package:flutter/material.dart';
+import 'package:contact_book_app/features/contact_crud/service/contact_service.dart';
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 
 class ContactServiceImpl  implements ContactService {
   
 
-  late FirebaseFirestore db;
+  final _db = FirebaseFirestore.instance;
   final CollectionReference contacts = 
   FirebaseFirestore.instance.collection('contactsOficial');
 
@@ -36,8 +35,9 @@ class ContactServiceImpl  implements ContactService {
 }
   
   @override
-  Future<ContactModel> updateContact(ContactModel contactModel) {
-    throw UnimplementedError();
+  Future<void> updateContact(ContactModel contactModel) async {
+    
+  
   }
    
 }

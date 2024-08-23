@@ -1,9 +1,8 @@
-import 'package:contact_book_app/features/chat/chat_view.dart';
+import 'package:contact_book_app/features/call/call_history_view.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/profile/ProfilePage.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> with TickerPr
   }
 List<Widget> pages = [
       const HomeView(),
+      const CallHistoryView(),
       const CreateContactView(),
       const Profilepage(),
       
@@ -51,8 +51,8 @@ List<Widget> pages = [
               ),
               
               CurvedNavigationBarItem(
-                child: Icon(Icons.newspaper),
-                label: 'Feed',
+                child: Icon(Icons.add),
+                label: 'Add Contact',
               ),
               CurvedNavigationBarItem(
                 child: Icon(Icons.perm_identity),

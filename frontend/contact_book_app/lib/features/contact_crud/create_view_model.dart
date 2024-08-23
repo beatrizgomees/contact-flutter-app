@@ -1,7 +1,7 @@
 import 'package:contact_book_app/ui/commum_components/snackbar_component.dart';
-import 'package:contact_book_app/features/contact_crud/contact_model.dart';
-import 'package:contact_book_app/features/contact_crud/contact_service_impl.dart';
-import 'package:contact_book_app/features/contact_crud/image_service.dart';
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
+import 'package:contact_book_app/features/contact_crud/service/image_service.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,7 +30,7 @@ createContact(ContactModel contactModel) async {
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
   await contactService.createContact(contactModel);
-  await updateContact();
+  await updateListContact();
   notifyListeners();
 }
 
@@ -91,11 +91,6 @@ void actionCreate(BuildContext context){
     body: 'Fale agor com ${contactModel.name}', 
   payload: '');
   
-  phoneController.text.isEmpty 
-  ? snackBarMessageCreateContactViewError(context, "Withou Phone! Please, put the phone ") 
-  : handleCreate(contactModel, context);
-                    
-                
 
 }
 
@@ -106,7 +101,7 @@ void clearForm(){
 }
 
 
-Future<void>  updateContact() async {
+Future<void>  updateListContact() async {
   var contact = await contactService.getContact();
   contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
   contacts.forEach((e){

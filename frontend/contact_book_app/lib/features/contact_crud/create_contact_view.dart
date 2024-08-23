@@ -1,4 +1,4 @@
-import 'package:contact_book_app/features/contact_crud/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
@@ -104,6 +104,8 @@ class _CreateContactViewState extends State<CreateContactView> {
                         favorite: false,
                         );
                       viewModel.handleCreate(contactModel, context);
+
+                      viewModel.updateListContact();
                     },
                     label: const Text("Create", style: TextStyle(color: Colors.black),),
                     icon: const Icon(Icons.create_rounded, color: Colors.black,),

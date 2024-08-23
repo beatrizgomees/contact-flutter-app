@@ -4,7 +4,7 @@ class ContactModel {
    String _phone = "";
    String? _email;
    String? _photo;
-   bool? favorite;
+   bool? _favorite;
 
   ContactModel(
       {String? objectId,
@@ -14,7 +14,7 @@ class ContactModel {
       bool? favorite,
       String? photo}) {
     if (objectId != null) {
-      _objectId = _objectId;
+      _objectId = objectId;
     }
     if (photo != null) {
       _photo = photo;
@@ -28,7 +28,7 @@ class ContactModel {
     }
 
     if(favorite != null){
-      this.favorite = favorite;
+      _favorite = favorite;
     }
   }
   String? get objectId => _objectId;
@@ -41,10 +41,13 @@ class ContactModel {
   set phone(String? phone) => _phone = phone!;
   String? get email => _email;
   set email(String? email) => _email = email;
+
+  bool? get favorite => _favorite;
+  set favorite(bool? favorite) => _favorite = favorite;
   
   factory ContactModel.fromMap(Map<String, dynamic> data) {
   return ContactModel(
-    objectId: data['id'],
+    objectId: data['objectId'],
     name: data['name'],
     phone: data['phone'],
     photo: data['photo'],
@@ -56,7 +59,7 @@ class ContactModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': objectId,
+      'objectId': objectId,
       'name': name,
       'phone': phone,
       'email': email,

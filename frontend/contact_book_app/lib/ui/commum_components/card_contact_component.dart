@@ -1,13 +1,14 @@
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/ui/widgets/favorite_button_widget.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CardContactComponent extends StatefulWidget {
-  CardContactComponent({super.key, required this.email, required this.name});
+  CardContactComponent({super.key,  required this.contactModel});
 
-  String name;
-  String email;
+  ContactModel contactModel;
+ 
 
 
   @override
@@ -49,13 +50,13 @@ class _CardContactComponentState extends State<CardContactComponent> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.name}", style: AppTheme.whiteFontStyleContactName,),
-                Text("${widget.email}", style: AppTheme.whiteFontStyleContatcSubtitle,
+              Text("${widget.contactModel.name}", style: AppTheme.whiteFontStyleContactName,),
+                Text("${widget.contactModel.email}", style: AppTheme.whiteFontStyleContatcSubtitle,
                 ),
 
             ],
           ),
-           FavoriteIconButton()
+           FavoriteIconButton(contactModel: widget.contactModel)
           
         ],
       ),

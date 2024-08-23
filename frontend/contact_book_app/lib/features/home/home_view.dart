@@ -1,9 +1,7 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
 import 'package:contact_book_app/ui/commum_components/card_contact_component.dart';
 import 'package:contact_book_app/ui/widgets/filter_button_widget.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
-import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -16,27 +14,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final HomeViewModel homeViewModel = HomeViewModel();
   XFile? photo;
 
   @override
   void initState() {
     super.initState();
-    homeViewModel.fetchContacts();
+   
   }
 
   @override
   Widget build(BuildContext context) {
+
+    HomeViewModel viewModel = context.watch<HomeViewModel>();
+    
     return Scaffold(
       appBar: _buildTopSectionHomeView(context),
-      floatingActionButton: _buildFloatButtonCreateContact(context),
       backgroundColor: Colors.white,
-      body: Consumer<HomeViewModel>(
-         builder: (context, viewModel, _) {
-         return SingleChildScrollView(
+      body:SingleChildScrollView(
            child: _buildListContact(context, viewModel)
-                );
-               }
              ),   
           );
         }
@@ -85,20 +80,20 @@ _buildTopSectionHomeView(BuildContext context){
   );
 }
 
-_buildFloatButtonCreateContact(BuildContext context){
-   return FloatingActionButton.extended(
-          onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>  const CreateContactView(),
-                ),
-              );
-        }, label: Text('Add Contact', 
-            style: AppTheme.whiteFontStyleContactName),
-            backgroundColor: Colors.blue.shade700,
-            icon: const Icon(Icons.add_call, color: Colors.white),
-            );
-}
+// _buildFloatButtonCreateContact(BuildContext context){
+//    return FloatingActionButton.extended(
+//           onPressed: () {
+//           Navigator.of(context).push(
+//             MaterialPageRoute(
+//               builder: (context) =>  const CreateContactView(),
+//                 ),
+//               );
+//         }, label: Text('Add Contact', 
+//             style: AppTheme.whiteFontStyleContactName),
+//             backgroundColor: Color.fromARGB(255, 98, 238, 17),
+//             icon: const Icon(Icons.add_call, color: Colors.white),
+//             );
+// }
 
 Widget _getData(var snapshot){
     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -144,8 +139,7 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
               
             },
             child: CardContactComponent(
-              email: contact.email!, 
-              name: contact.name!,
+             contactModel: contact,
               ),
           ),
             onTap: () {

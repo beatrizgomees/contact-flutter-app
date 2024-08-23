@@ -1,7 +1,8 @@
-import 'package:contact_book_app/features/contact_crud/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ChatView extends StatefulWidget {
    ChatView({super.key, required this.contactModel});
 

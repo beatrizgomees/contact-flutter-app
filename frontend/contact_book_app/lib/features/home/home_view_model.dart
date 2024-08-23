@@ -1,6 +1,7 @@
-import 'package:contact_book_app/features/contact_crud/contact_model.dart';
-import 'package:contact_book_app/features/contact_crud/contact_service_impl.dart';
-import 'package:contact_book_app/features/contact_crud/image_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
+import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
+import 'package:contact_book_app/features/contact_crud/service/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -55,6 +56,22 @@ void toggleFavorite(ContactModel contactModel, bool isFavorited){
 }
 
 */
+
+
+Future<void> updateFavorite(ContactModel contactModel) async{
+ DocumentReference docRef = await contactService.contacts
+    .doc(contactModel.objectId);
+
+  DocumentSnapshot document = await docRef.get();
+
+  if (document.exists) {
+    // Atualizando o telefone
+    await docRef.update({'favorite': contactModel.favorite});
+    print('Favorito atualizado com sucesso! ${contactModel.favorite}');
+  } else {
+    print('Contato não encontrado.');
+  }
+}
 
 
 

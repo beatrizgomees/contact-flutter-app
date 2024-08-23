@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FilterButton extends StatefulWidget {
    FilterButton({super.key, required this.label});
   String label;
