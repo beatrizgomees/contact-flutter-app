@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_book_app/ui/commum_components/snackbar_component.dart';
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
@@ -25,11 +26,11 @@ takeImage(XFile? photo) async {
 
 
 createContact(ContactModel contactModel) async {
-  contactModel.objectId = uuid.v4();
   contactModel.phone = phoneController.text;
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
   await contactService.createContact(contactModel);
+
   await updateListContact();
   notifyListeners();
 }

@@ -10,7 +10,7 @@ class HomeViewModel extends ChangeNotifier{
 TextEditingController nameController = TextEditingController();
 TextEditingController phoneController = TextEditingController();
 TextEditingController emailController = TextEditingController();
- 
+
 var imageService = ImageService();
 var contactService = ContactServiceImpl();
 XFile? photo;
@@ -58,19 +58,24 @@ void toggleFavorite(ContactModel contactModel, bool isFavorited){
 */
 
 
-Future<void> updateFavorite(ContactModel contactModel) async{
- DocumentReference docRef = await contactService.contacts
-    .doc(contactModel.objectId);
+Future<void> updateFavorite(String? objectId, bool favorite) async{
+    try{
+     DocumentReference documentRef = FirebaseFirestore.instance
+        .collection('contatos')
+        .doc(objectId);
 
-  DocumentSnapshot document = await docRef.get();
+      Map<String, dynamic> updatedData = {
+          'favorite': favorite,
+        };
 
-  if (document.exists) {
-    // Atualizando o telefone
-    await docRef.update({'favorite': contactModel.favorite});
-    print('Favorito atualizado com sucesso! ${contactModel.favorite}');
-  } else {
-    print('Contato não encontrado.');
+      await documentRef.update(updatedData);
+
+    print('Document updated successfully!');
+  } catch (e) {
+    print('Error updating document: $e');
   }
+  
+  
 }
 
 

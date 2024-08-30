@@ -6,20 +6,24 @@ import 'package:contact_book_app/features/contact_crud/model/contact_model.dart'
 class ContactServiceImpl  implements ContactService {
   
 
-  final _db = FirebaseFirestore.instance;
   final CollectionReference contacts = 
-  FirebaseFirestore.instance.collection('contactsOficial');
+  FirebaseFirestore.instance.collection('contatos');
 
 
   @override
-  Future<void> createContact(ContactModel contactModel) {
-   return contacts.add({
+  Future<void> createContact(ContactModel contactModel) async {
+    final DocumentReference docRef = await contacts.add({
     'name':contactModel.name,
     'email': contactModel.email,
     'phone': contactModel.phone,
     'objectId': contactModel.objectId,
     'favorite': contactModel.favorite
    });
+
+   final String id = docRef.id;
+   contacts.doc(id).update({'objectId': id});
+
+
   }
   
   @override

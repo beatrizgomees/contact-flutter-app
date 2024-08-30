@@ -1,8 +1,8 @@
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FavoriteIconButton extends StatefulWidget {
   FavoriteIconButton({super.key, required this.contactModel});
 
@@ -26,7 +26,7 @@ class _FavoriteIconButtonState extends State<FavoriteIconButton> {
       ),
       icon: Icon(
         Icons.star,
-        color: isFavorite == true ? Colors.yellowAccent.shade700 : Colors.grey,
+        color: widget.contactModel.favorite == true ? Colors.yellowAccent.shade700 : Colors.grey,
       ),
       onPressed: () {
         setState(() {
@@ -38,7 +38,9 @@ class _FavoriteIconButtonState extends State<FavoriteIconButton> {
             objectId: widget.contactModel.objectId,
             favorite: isFavorite
           );
-          homeViewModel.updateFavorite(updateContact);
+          homeViewModel.updateFavorite(widget.contactModel.objectId, isFavorite);
+
+          homeViewModel.fetchContacts();
 
         });
       },
