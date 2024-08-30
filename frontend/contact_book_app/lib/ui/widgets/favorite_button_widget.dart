@@ -31,16 +31,8 @@ class _FavoriteIconButtonState extends State<FavoriteIconButton> {
       onPressed: () {
         setState(() {
           isFavorite = !isFavorite; 
-          ContactModel updateContact = ContactModel(
-            name: widget.contactModel.name,
-            email: widget.contactModel.email,
-            phone: widget.contactModel.phone!,
-            objectId: widget.contactModel.objectId,
-            favorite: isFavorite
-          );
           homeViewModel.updateFavorite(widget.contactModel.objectId, isFavorite);
-
-          homeViewModel.fetchContacts();
+           homeViewModel.fetchContacts();
 
         });
       },

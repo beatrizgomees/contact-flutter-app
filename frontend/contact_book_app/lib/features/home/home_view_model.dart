@@ -25,12 +25,9 @@ takeImage(XFile? photo) async {
 
 
 Future<void> fetchContacts() async {
-  var contact = await contactService.getContact();
-
-  contacts = contact.docs.map((doc) => 
-  ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
-
-
+ var contact = await contactService.getContact();
+  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+  notifyListeners();
  
 }
 
@@ -46,17 +43,6 @@ List<ContactModel> orderList(List<ContactModel> contactList){
  
   return order;
 }
-/*
-void toggleFavorite(ContactModel contactModel, bool isFavorited){
- if(contactModel.favorite != isFavorited){
-  contactModel.favorite = isFavorited;
-  notifyListeners();
- }
-  
-}
-
-*/
-
 
 Future<void> updateFavorite(String? objectId, bool favorite) async{
     try{
