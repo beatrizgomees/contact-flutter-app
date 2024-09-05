@@ -16,6 +16,10 @@ var contactService = ContactServiceImpl();
 XFile? photo;
 List<ContactModel> contacts = [];
 List<ContactModel> contactOrder = [];
+List<ContactModel> contactsFavorites = [];
+bool showOnlyFavorites = false;
+bool showOnlyGroups = false;
+bool showAll = false;
 
 takeImage(XFile? photo) async {
  imageService.takeImage(photo);
@@ -25,10 +29,12 @@ takeImage(XFile? photo) async {
 
 
 Future<void> fetchContacts() async {
- var contact = await contactService.getContact();
-  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
-  notifyListeners();
- 
+if(showAll == true){
+  var contact = await contactService.getContact();
+    contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+    notifyListeners();
+  }
+
 }
 
 
@@ -56,7 +62,7 @@ Future<void> updateFavorite(String? objectId, bool favorite) async{
 
       await documentRef.update(updatedData);
 
-    print('Document updated successfully!');
+    print('Document updated successfully!'); //criar um snackbar
   } catch (e) {
     print('Error updating document: $e');
   }
@@ -64,6 +70,30 @@ Future<void> updateFavorite(String? objectId, bool favorite) async{
   
 }
 
+void toggleFavorite(){
+  if(showOnlyFavorites == true){
+    getFavoritesContacts();
+  }
+
+  contactsFavorites.clear();
+
+}
+
+
+Future<void> getFavoritesContacts() async {
+ 
+  var contact = await contactService.getContact();
+  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+  
+  contacts.forEach((element) {
+    if(element.favorite == true){
+      contactsFavorites.add(element);
+    }
+  },);
+  notifyListeners();
+
+ 
+}
 
 
 
