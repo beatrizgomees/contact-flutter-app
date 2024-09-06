@@ -17,10 +17,13 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   XFile? photo;
   HomeViewModel viewModel = HomeViewModel();
+
   @override
   void initState() {
-    viewModel.showAll = true;
     super.initState();
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<HomeViewModel>(context, listen: false).fetchContacts();
+    });
    
   }
 
@@ -68,16 +71,21 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                      FilterButton(label: "All", onPressed: () {
-                        viewModel.showOnlyFavorites = !viewModel.showOnlyFavorites;
-                        viewModel.showAll = !viewModel.showAll;
-                        viewModel.fetchContacts();
+                        if(!viewModel.showAll){
+                          viewModel.showOnlyFavorites = false; // Garante que o filtro de favoritos seja desativado
+                          viewModel.showAll = true; // Ativa o filtro "All"
+                          viewModel.fetchContacts(); 
+                        }
                      },
-                     isFavorite: viewModel.showAll,
+                     isAll: viewModel.showAll,
+                     
                      ),
                      FilterButton(label: "Favorites", onPressed: () {
-                       viewModel.showOnlyFavorites = !viewModel.showOnlyFavorites;
-                       viewModel.showAll = !viewModel.showAll;
-                       viewModel.toggleFavorite();
+                      if(!viewModel.showOnlyFavorites){
+                        viewModel.showAll = false;
+                        viewModel.showOnlyFavorites = true;
+                        viewModel.toggleFavorite();
+                      }
                      },
                      isFavorite: viewModel.showOnlyFavorites,
                     ),
@@ -131,18 +139,24 @@ Widget _connectionState(var snapshot){
 
 _buildListContact(BuildContext context, HomeViewModel viewModel){
 
-  List<ContactModel> displayedContacts;
+  List<ContactModel> displayedContacts = [];
 
   return FutureBuilder(
     future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
     builder: (context, snapshot) {
+
     _connectionState(snapshot);
+     
+     
 
     if(viewModel.showOnlyFavorites == true){
       displayedContacts = viewModel.contactsFavorites;
     }else{
-      var contacts = viewModel.fetchContacts();
-      displayedContacts = viewModel.contacts;
+     if(viewModel.showAll && snapshot.data != null){
+      List<ContactModel> allContacts = snapshot.data!;
+      displayedContacts = allContacts;
+
+     }
     }
 
     return ListView.builder(

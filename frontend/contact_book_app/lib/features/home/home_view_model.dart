@@ -19,7 +19,7 @@ List<ContactModel> contactOrder = [];
 List<ContactModel> contactsFavorites = [];
 bool showOnlyFavorites = false;
 bool showOnlyGroups = false;
-bool showAll = false;
+bool showAll = true;
 
 takeImage(XFile? photo) async {
  imageService.takeImage(photo);
@@ -28,14 +28,21 @@ takeImage(XFile? photo) async {
 
 
 
-Future<void> fetchContacts() async {
-if(showAll == true){
-  var contact = await contactService.getContact();
-    contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
-    notifyListeners();
-  }
+Future<List<ContactModel>> fetchContacts() async {
+
+  try{
+    if(showAll == true){
+     var contact = await contactService.getContact();
+        contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+        notifyListeners();
+      }
+    }catch (e){
+      print('Erro ao buscar contatos: $e ');
+    }
+    return contacts;
 
 }
+
 
 
 List<ContactModel> orderList(List<ContactModel> contactList){

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class FilterButton extends StatefulWidget {
-  FilterButton({super.key, required this.label, required this.onPressed, this.isFavorite});
+  FilterButton({super.key, required this.label, required this.onPressed, this.isFavorite, this.isAll});
   String label;
   final VoidCallback? onPressed;
   bool? isFavorite;
+  bool? isAll;
+
   @override
   State<FilterButton> createState() => _FilterButtonState();
 }
@@ -21,12 +23,12 @@ class _FilterButtonState extends State<FilterButton> {
           width: 150,
           height: 30,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
-        color: widget.isFavorite == true && widget.label == "Favorites" ? Colors.grey : Colors.white,
+        color: widget.isFavorite == true && widget.label == "Favorites" || widget.isAll == true && widget.label == "All" ? Colors.grey : Colors.white,
           ),
           child:  Center(
             child: Text(widget.label, style: TextStyle(
               fontSize: 16,
-              color:widget.isFavorite == true && widget.label == "Favorites" ? Colors.white : Colors.black,
+              color:widget.isFavorite == true && widget.label == "Favorites" || widget.isAll == true && widget.label == "All" ? Colors.white : Colors.black,
             ),
             ),
           ),
