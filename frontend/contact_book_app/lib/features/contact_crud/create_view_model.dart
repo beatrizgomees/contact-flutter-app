@@ -18,6 +18,7 @@ var contactService = ContactServiceImpl();
 var uuid = Uuid();
 List<ContactModel> contacts = [];
 NotificationsService notificationsService = NotificationsService();
+bool? selectEdit = false;
 
 takeImage(XFile? photo) async {
  imageService.takeImage(photo);

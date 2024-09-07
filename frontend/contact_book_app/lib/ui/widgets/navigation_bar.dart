@@ -25,7 +25,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> with TickerPr
 List<Widget> pages = [
       const HomeView(),
       const CallHistoryView(),
-      const CreateContactView(),
+      CreateContactView(),
       const Profilepage(),
       
   ];

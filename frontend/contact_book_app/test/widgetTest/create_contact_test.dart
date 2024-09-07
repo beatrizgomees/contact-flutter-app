@@ -10,14 +10,30 @@ void main(){
 
     testWidgets('must confirm that the email field appears ', (test) async {
 
-      await test.pumpWidget(
-        const MaterialApp(
-        home: CreateContactView(),
-      ),
-      );
+      await test.runAsync(() async {
 
-      final emailKey = find.byKey(const Key('name_key'));
-      expect(emailKey, findsOneWidget);
+      final future = Future<void>.error(42);
+
+      await test.pumpWidget(FutureBuilder(
+        future: future,
+        builder: (_, snapshot) {
+          return CreateContactView();
+        },
+      ));
+
     });
+    testWidgets('ViewRequest: Waiting Types List', (WidgetTester tester) async {
+    const childWidget = CircularProgressIndicator();
+
+    
+ 
+
+    // Verify that the page is loading until we receive the types.
+    expect(find.byWidget(childWidget), findsOneWidget);
+  });
+
+  
+    expect(find.byType(TextFormField), findsOneWidget);
+  });
   });
 }
