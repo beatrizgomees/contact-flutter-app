@@ -1,4 +1,5 @@
 import 'package:contact_book_app/features/call/call_history_view.dart';
+import 'package:contact_book_app/features/contact_crud/edit_list_contact_view.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/profile/ProfilePage.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
@@ -6,6 +7,7 @@ import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class NavigationBottomBar extends StatefulWidget {
   const NavigationBottomBar({Key? key}) : super(key: key);
@@ -25,8 +27,10 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> with TickerPr
 List<Widget> pages = [
       const HomeView(),
       const CallHistoryView(),
+      EditListContactView(),
       CreateContactView(),
       const Profilepage(),
+    
       
   ];
   @override
@@ -49,7 +53,11 @@ List<Widget> pages = [
                 child: Icon(Icons.call_end_outlined),
                 label: 'Call',
               ),
-              
+                 
+              CurvedNavigationBarItem(
+                child: Icon(Bootstrap.list),
+                label: 'List',
+              ),
               CurvedNavigationBarItem(
                 child: Icon(Icons.add),
                 label: 'Add Contact',
@@ -66,4 +74,4 @@ List<Widget> pages = [
   }
 }
 
-enum _SelectedTab { home, create, chat, person }
+enum _SelectedTab { home, call, create, list, person }
