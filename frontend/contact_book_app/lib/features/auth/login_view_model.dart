@@ -1,5 +1,5 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
-import 'package:contact_book_app/utils/navigators/navigator_to.dart';
+import 'package:contact_book_app/features/shared/utils/navigators/navigator_to.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

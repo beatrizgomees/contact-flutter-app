@@ -1,10 +1,10 @@
-import 'package:contact_book_app/ui/commum_components/button_transparent_component.dart';
-import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
+import 'package:contact_book_app/features/shared/ui/commom/button_transparent_component.dart';
+import 'package:contact_book_app/features/shared/ui/commom/text_form_field_component.dart';
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:contact_book_app/features/auth/login_view_model.dart';
-import 'package:contact_book_app/ui/commum_components/top_section_component.dart';
-import 'package:contact_book_app/ui/widgets/button_register_or_login_widget.dart';
-import 'package:contact_book_app/ui/widgets/sign_with_external_account_widget.dart';
+import 'package:contact_book_app/features/shared/ui/commom/top_section_component.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/button_register_or_login_widget.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/sign_with_external_account_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
