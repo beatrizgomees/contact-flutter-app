@@ -1,4 +1,5 @@
 import 'package:contact_book_app/features/contact_crud/edit_list_contact_view_model.dart';
+import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class _EditListContactViewState extends State<EditListContactView>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: AppTheme.backgroundPrincipalColor,
       body: SingleChildScrollView(
         child: Consumer<EditListContactViewModel>(
           builder: (context, viewModel, child) {
@@ -36,7 +37,7 @@ class _EditListContactViewState extends State<EditListContactView>  {
                       children: [
                         const CircleAvatar(),
                         const SizedBox(width: 20),
-                        Text(contact.name!, style: const TextStyle(fontSize: 20),),
+                        Text(contact.name!, style: const TextStyle(fontSize: 20, color: Colors.white),),
                       ],
                     ),),
                 );

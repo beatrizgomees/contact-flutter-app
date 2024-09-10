@@ -51,6 +51,7 @@ dependencies:
   flutter_local_notifications: ^17.2.1+2
   firebase_auth: ^5.1.3
   curved_labeled_navigation_bar: ^2.0.2
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,11 @@ flutter:
     - assets/images/iconGoogle.png
     - assets/images/facebook.png
     - assets/images/perfil.jpg
+    - assets/icons/o-email.png
+    - assets/icons/telefone.png
+    - assets/icons/camera-de-video.png
+    - assets/icons/bater-papo.png
+ 
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

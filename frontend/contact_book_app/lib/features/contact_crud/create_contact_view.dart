@@ -1,4 +1,3 @@
-import 'package:contact_book_app/features/contact_crud/edit_list_contact_view.dart';
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
@@ -31,43 +30,11 @@ class _CreateContactViewState extends State<CreateContactView> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      //borderRadius: BorderRadius.all(Radius.circular(5)),
-                      border: Border.all(color: Colors.black, width: 2)
-                    ),
-                    child: Center(child: Text("Create", style: TextStyle(fontSize: 16, ))),),
-                    GestureDetector(
-                      child: Container(
-                      width: 100,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: viewModel.selectEdit == true? Colors.black45 : Colors.white,
-                        //borderRadius: BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: Colors.black, width: 2)
-                      ),
-                      child: const Center(child: Text("Edit", style: TextStyle(fontSize: 16, ),)),),
-                      onTap: () {
-                        Navigator.of(context).push(
-                        MaterialPageRoute(
-                           builder: (context) =>  const EditListContactView(),
-                          ),
-                        );
-                      }
-          
-                  )
-                ],
-              ),
+              
               Divider(),
 
               const SizedBox(height: 50),
-              Text("Add new Contact", style: TextStyle(fontSize: 20),),
+              Text("Add new Contact", style: AppTheme.titleWhiteFont,),
               const SizedBox(height: 50),
                     
                       

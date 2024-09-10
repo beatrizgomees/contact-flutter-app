@@ -3,6 +3,7 @@ import 'package:contact_book_app/features/contact_crud/model/contact_model.dart'
 import 'package:contact_book_app/ui/commum_components/card_contact_component.dart';
 import 'package:contact_book_app/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
+import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
     
     return Scaffold(
       appBar: _buildTopSectionHomeView(context, viewModel),
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.backgroundPrincipalColor,
       body:SingleChildScrollView(
            child: _buildListContact(context, viewModel)
              ), 
@@ -47,7 +48,7 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
   return AppBar(
     title: const Text("Chats"),
     toolbarHeight: 150,
-    backgroundColor: Colors.black,
+    backgroundColor: AppTheme.backgroundPrincipalColor,
     leadingWidth: MediaQuery.of(context).size.width,
     actions: [
       IconButton(onPressed: () {}, icon: const Icon(Icons.search,  color: Colors.white,))

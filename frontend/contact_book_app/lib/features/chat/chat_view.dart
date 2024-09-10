@@ -1,6 +1,7 @@
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 // ignore: must_be_immutable
 class ChatView extends StatefulWidget {
@@ -17,6 +18,7 @@ class _ChatViewState extends State<ChatView> {
     return Scaffold(
       backgroundColor: AppTheme.backgroundPrincipalColor,
       appBar: AppBar(
+        foregroundColor:Colors.white,
          backgroundColor: AppTheme.backgroundPrincipalColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +28,7 @@ class _ChatViewState extends State<ChatView> {
               padding: EdgeInsets.only(right: 10),
               child: CircleAvatar(),
             ),
-            Text(widget.contactModel.name!, style: const TextStyle(fontSize: 15),),
+            Text(widget.contactModel.name!, style: AppTheme.titleWhiteFont,),
 
           
           ],
@@ -35,11 +37,11 @@ class _ChatViewState extends State<ChatView> {
         actions: const [
             Padding(
               padding: EdgeInsets.all(18.0),
-              child: Icon(Icons.phone),
+              child: Icon(Bootstrap.telephone,  color: Colors.white,),
             ),
             Padding(
               padding: EdgeInsets.all(18.0),
-              child: Icon(Icons.camera_alt_outlined),
+              child: Icon(Bootstrap.camera_video, color: Colors.white,),
             )
         ],
      
@@ -54,14 +56,17 @@ class _ChatViewState extends State<ChatView> {
             TextFormField(
               
               decoration: InputDecoration(
+                
                 hintText: "write a message",
+                fillColor: Colors.white,
+                focusColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black.withOpacity(0.4)),
+                  borderSide: BorderSide(color: Colors.white),
                   gapPadding: 20,
                   borderRadius: BorderRadius.circular(10),
                 ),
                   focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.blue),  // Cor do contorno quando está focado
+                  borderSide: const BorderSide(color: Colors.white),  // Cor do contorno quando está focado
                   gapPadding: 50,
                   borderRadius: BorderRadius.circular(10),
           ),
