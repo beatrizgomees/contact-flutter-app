@@ -1,4 +1,4 @@
-import 'package:contact_book_app/ui/commum_components/snackbar_component.dart';
+import 'package:contact_book_app/ui/commom/snackbar_component.dart';
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
 import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
 import 'package:contact_book_app/features/contact_crud/service/image_service.dart';

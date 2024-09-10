@@ -1,6 +1,6 @@
 import 'package:contact_book_app/features/register/register_view_model.dart';
-import 'package:contact_book_app/ui/commum_components/text_form_field_component.dart';
-import 'package:contact_book_app/ui/commum_components/top_section_component.dart';
+import 'package:contact_book_app/ui/commom/text_form_field_component.dart';
+import 'package:contact_book_app/ui/commom/top_section_component.dart';
 import 'package:contact_book_app/ui/widgets/button_register_or_login_widget.dart';
 import 'package:contact_book_app/ui/widgets/sign_with_external_account_widget.dart';
 import 'package:flutter/material.dart';

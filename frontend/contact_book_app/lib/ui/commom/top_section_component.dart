@@ -1,4 +1,4 @@
-import 'package:contact_book_app/ui/commum_components/button_transparent_component.dart';
+import 'package:contact_book_app/ui/commom/button_transparent_component.dart';
 import 'package:contact_book_app/utils/navigators/navigator_to.dart';
 import 'package:flutter/material.dart';
 

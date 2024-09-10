@@ -1,6 +1,8 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
 import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/ui/commum_components/card_contact_component.dart';
+import 'package:contact_book_app/features/contact_crud/service/search_contacts_service.dart';
+import 'package:contact_book_app/features/home/search_contact_list_view.dart';
+import 'package:contact_book_app/ui/commom/card_contact_component.dart';
 import 'package:contact_book_app/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
@@ -51,7 +53,16 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
     backgroundColor: AppTheme.backgroundPrincipalColor,
     leadingWidth: MediaQuery.of(context).size.width,
     actions: [
-      IconButton(onPressed: () {}, icon: const Icon(Icons.search,  color: Colors.white,))
+     IconButton(
+      icon: const Icon(Icons.search, color: Colors.white),
+      onPressed: () {
+        ContactsList(contact: viewModel.contacts);
+        showSearch(
+        context: context,
+        delegate: SearchContactsService(contacts: viewModel.contacts),
+      );
+      },
+    ),
     ],
     leading:Padding(
         padding: const EdgeInsets.all(10.0),
@@ -64,60 +75,48 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
           iconSize: 30.0,
           color: Colors.white,
            ),
-            Stack(
-              children:[
-               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     FilterButton(label: "All", onPressed: () {
-                        if(!viewModel.showAll){
-                          viewModel.showOnlyFavorites = false; // Garante que o filtro de favoritos seja desativado
-                          viewModel.showAll = true; // Ativa o filtro "All"
-                          viewModel.fetchContacts(); 
-                        }
-                     },
-                     isAll: viewModel.showAll,
-                     
-                     ),
-                     FilterButton(label: "Favorites", onPressed: () {
-                      if(!viewModel.showOnlyFavorites){
-                        viewModel.showAll = false;
-                        viewModel.showOnlyFavorites = true;
-                        viewModel.toggleFavorite();
-                      }
-                     },
-                     isFavorite: viewModel.showOnlyFavorites,
-                    ),
-                     //FilterButton(label: "Groups"),
-                   ],
-                 ),
-               )
-
-            ],
-          ),
-           
+           _buildFiltersButton(context, viewModel)
           ],
         ),
       ),
   );
 }
 
-// _buildFloatButtonCreateContact(BuildContext context){
-//    return FloatingActionButton.extended(
-//           onPressed: () {
-//           Navigator.of(context).push(
-//             MaterialPageRoute(
-//               builder: (context) =>  const CreateContactView(),
-//                 ),
-//               );
-//         }, label: Text('Add Contact', 
-//             style: AppTheme.whiteFontStyleContactName),
-//             backgroundColor: Color.fromARGB(255, 98, 238, 17),
-//             icon: const Icon(Icons.add_call, color: Colors.white),
-//             );
-// }
+_buildFiltersButton(BuildContext context, HomeViewModel viewModel){
+   return Stack(
+      children:[
+        SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+          child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FilterButton(label: "All", onPressed: () {
+                if(!viewModel.showAll){
+                  viewModel.showOnlyFavorites = false; // Garante que o filtro de favoritos seja desativado
+                  viewModel.showAll = true; // Ativa o filtro "All"
+                  viewModel.fetchContacts(); 
+                }
+              },
+              isAll: viewModel.showAll,
+              
+              ),
+              FilterButton(label: "Favorites", onPressed: () {
+              if(!viewModel.showOnlyFavorites){
+                viewModel.showAll = false;
+                viewModel.showOnlyFavorites = true;
+                viewModel.toggleFavorite();
+              }
+              },
+              isFavorite: viewModel.showOnlyFavorites,
+            ),
+              //FilterButton(label: "Groups"),
+            ],
+          ),
+        )
+
+    ],
+  );
+}
 
 Widget _connectionState(var snapshot){
     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -138,64 +137,62 @@ Widget _connectionState(var snapshot){
   );
 }
 
-_buildListContact(BuildContext context, HomeViewModel viewModel){
 
+List<ContactModel> buildListsWithFilters(HomeViewModel viewModel, var snapshot){
   List<ContactModel> displayedContacts = [];
-
-  return FutureBuilder(
-    future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
-    builder: (context, snapshot) {
-
-    _connectionState(snapshot);
-     
-     
-
-    if(viewModel.showOnlyFavorites == true){
+   if(viewModel.showOnlyFavorites == true){
       displayedContacts = viewModel.contactsFavorites;
     }else{
      if(viewModel.showAll && snapshot.data != null){
       List<ContactModel> allContacts = snapshot.data!;
       displayedContacts = allContacts;
-
      }
     }
+    return displayedContacts;
+}
 
-    return ListView.builder(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: displayedContacts.length,
-    itemBuilder: (context, index) {
-      var contact = displayedContacts[index];
-        return GestureDetector(
+_buildListContact(BuildContext context, HomeViewModel viewModel){
+  return FutureBuilder(
+    future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
+    builder: (context, snapshot) {
 
-          /*
-          child: Dismissible(
-            key: Key(viewModel.contacts[index].toString()),
-            background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
-            secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
-            onDismissed: (direction) {
-               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Item ${viewModel.contacts[index].toString()} arquivado')),
-              );
-              
-              
-            },
-            */
-            child: CardContactComponent(
-             contactModel: contact,
-              ),
-          //),
-            onTap: () {
-            Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatView(contactModel: contact),
-                  ),
+    _connectionState(snapshot);
+    List<ContactModel> displayedContacts = buildListsWithFilters(viewModel, snapshot);
+
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: displayedContacts.length,
+      itemBuilder: (context, index) {
+        var contact = displayedContacts[index];
+          return GestureDetector(
+            child: Dismissible(
+              key: Key(viewModel.contacts[index].toString()),
+              background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
+              secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
+              onDismissed: (direction) {
+                 ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Item ${viewModel.contacts[index].toString()} arquivado')),
                 );
-            },
-        );
-            },
+              },
+              child: CardContactComponent(
+               contactModel: contact,
+                ),
+            ),
+              onTap: () {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatView(contactModel: contact),
+                    ),
+                  );
+              },
           );
+              },
+            ),
+    );
         }
     );
 }

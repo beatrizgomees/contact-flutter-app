@@ -1,5 +1,5 @@
-import 'package:contact_book_app/ui/commum_components/icon_button_component.dart';
-import 'package:contact_book_app/ui/commum_components/info_card_component.dart';
+import 'package:contact_book_app/ui/commom/icon_button_component.dart';
+import 'package:contact_book_app/ui/commom/info_card_component.dart';
 import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
