@@ -80,6 +80,11 @@ flutter:
     - assets/images/iconGoogle.png
     - assets/images/facebook.png
     - assets/images/perfil.jpg
+    - assets/icons/o-email.png
+    - assets/icons/telefone.png
+    - assets/icons/camera-de-video.png
+    - assets/icons/bater-papo.png
+ 
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

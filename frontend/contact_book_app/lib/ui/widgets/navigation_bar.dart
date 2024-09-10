@@ -42,7 +42,7 @@ List<Widget> pages = [
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 5),
         child: CurvedNavigationBar(
-          backgroundColor: Colors.black.withOpacity(0.1),
+          backgroundColor: _selectedTab.index == 5 ? Colors.white : Colors.black.withOpacity(0.1),
           onTap: _handleIndexChanged,
           items: const [
             CurvedNavigationBarItem(

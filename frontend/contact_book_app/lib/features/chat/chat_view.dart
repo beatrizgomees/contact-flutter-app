@@ -56,6 +56,7 @@ class _ChatViewState extends State<ChatView> {
             TextFormField(
               
               decoration: InputDecoration(
+                
                 hintText: "write a message",
                 fillColor: Colors.white,
                 focusColor: Colors.white,
