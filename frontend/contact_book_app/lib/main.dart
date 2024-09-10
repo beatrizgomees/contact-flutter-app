@@ -1,5 +1,4 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
-import 'package:contact_book_app/features/contact_crud/edit_list_contact_view_model.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
@@ -60,7 +59,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreateViewModel()),
-        ChangeNotifierProvider(create: (_) => EditListContactViewModel()),
         ChangeNotifierProvider(create: (_) => RegisterViewModel())
       ],
       child: MaterialApp(

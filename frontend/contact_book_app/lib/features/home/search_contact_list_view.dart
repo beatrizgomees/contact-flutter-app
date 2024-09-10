@@ -3,7 +3,7 @@ import 'package:contact_book_app/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-   ContactsList({
+   const ContactsList({
     required this.contact,
     super.key,
   });
