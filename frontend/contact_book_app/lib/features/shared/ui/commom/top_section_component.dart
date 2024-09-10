@@ -1,5 +1,5 @@
-import 'package:contact_book_app/ui/commom/button_transparent_component.dart';
-import 'package:contact_book_app/utils/navigators/navigator_to.dart';
+import 'package:contact_book_app/features/shared/ui/commom/button_transparent_component.dart';
+import 'package:contact_book_app/features/shared/utils/navigators/navigator_to.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

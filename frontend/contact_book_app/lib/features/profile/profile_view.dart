@@ -1,6 +1,6 @@
-import 'package:contact_book_app/ui/commom/icon_button_component.dart';
-import 'package:contact_book_app/ui/commom/info_card_component.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/ui/commom/icon_button_component.dart';
+import 'package:contact_book_app/features/shared/ui/commom/info_card_component.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

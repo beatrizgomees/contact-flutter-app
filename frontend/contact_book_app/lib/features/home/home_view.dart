@@ -1,11 +1,11 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
 import 'package:contact_book_app/features/contact_crud/service/search_contacts_service.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
-import 'package:contact_book_app/ui/commom/card_contact_component.dart';
-import 'package:contact_book_app/ui/widgets/filter_button_widget.dart';
+import 'package:contact_book_app/features/shared/ui/commom/card_contact_component.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';

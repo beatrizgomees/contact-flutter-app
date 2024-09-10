@@ -1,5 +1,5 @@
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {

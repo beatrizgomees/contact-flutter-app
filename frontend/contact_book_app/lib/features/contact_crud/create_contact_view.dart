@@ -1,6 +1,6 @@
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/ui/commom/text_form_field_component.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/ui/commom/text_form_field_component.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
