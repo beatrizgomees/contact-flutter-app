@@ -50,7 +50,7 @@ class _CardContactComponentState extends State<CardContactComponent> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.contactModel.name}", style: AppTheme.whiteFontStyleContactName,),
+              Text("${widget.contactModel.name}", style: AppTheme.whiteFontStyleTitle,),
                 Text("${widget.contactModel.email}", style: AppTheme.whiteFontStyleContatcSubtitle,
                 ),
 

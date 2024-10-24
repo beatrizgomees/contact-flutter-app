@@ -34,10 +34,9 @@ class InfoCardComponent extends StatelessWidget {
             SizedBox(width: isContact == true ? 115 : 50),
             isContact == true ?
             IconButtonComponent(
-              width: 50, 
-              height: 50, 
               colorContainer: Colors.white, 
-              colorIcon: Colors.black,
+              colorshadow: Colors.grey.withOpacity(0.5),
+              isIcon: true,
                 icon: Icon(Bootstrap.heart)) :  SizedBox.shrink(),
           ] ,
         ),
