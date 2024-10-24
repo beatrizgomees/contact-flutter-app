@@ -38,10 +38,10 @@ class SearchContactsService extends SearchDelegate{
   Widget buildSuggestions(BuildContext context) {
     results = contacts.where((ContactModel contact) {
     final String title = contact.name!.toLowerCase();
-    final String body = contact.phone!.toLowerCase();
+    final int body = contact.phone!;
     final String input = query.toLowerCase();
 
-    return title.contains(input) || body.contains(input);
+    return title.contains(input) || body.toString().contains(input);
   }).toList();
 
   return results.isEmpty

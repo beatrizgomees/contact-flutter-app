@@ -27,7 +27,7 @@ class RegisterViewModel extends ChangeNotifier{
 
       ContactModel contactModel = ContactModel(
       email: emailController.text,
-      phone: phoneController.text,
+      phone: int.parse(phoneController.text),
       name: nameController.text,
       
      );

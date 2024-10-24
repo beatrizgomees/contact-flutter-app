@@ -31,7 +31,7 @@ class ContactsList extends StatelessWidget {
                   contact[index].name!,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                Text(contact[index].phone!),
+                Text(contact[index].phone!.toString()),
               ],
             ),
           ),

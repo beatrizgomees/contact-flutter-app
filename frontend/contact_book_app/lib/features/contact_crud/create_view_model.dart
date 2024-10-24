@@ -26,7 +26,7 @@ takeImage(XFile? photo) async {
 
 
 createContact(ContactModel contactModel) async {
-  contactModel.phone = phoneController.text;
+  contactModel.phone = int.parse(phoneController.text);
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
   await contactService.createContact(contactModel);
@@ -37,7 +37,7 @@ createContact(ContactModel contactModel) async {
 
 handleCreate(ContactModel contactModel, BuildContext context) async {
   if (contactModel.name!.isNotEmpty &&
-      contactModel.phone!.isNotEmpty) {
+      contactModel.phone != null) {
 
 //Verifica se o contato já existe na lista, se sim, envia uma mensagem de error
       if(checkIfContactExist(contactModel, context)){
@@ -79,7 +79,7 @@ void snackBarMessageCreateContactViewError(BuildContext context, String message)
 void actionCreate(BuildContext context){
   ContactModel contactModel = ContactModel(
     name: nameController.text,
-    phone: phoneController.text,
+    phone: int.parse(phoneController.text),
     email: emailController.text,
   );
 

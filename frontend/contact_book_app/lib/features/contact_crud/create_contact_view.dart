@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:contact_book_app/features/shared/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/ui/commom/text_form_field_component.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
@@ -73,7 +75,7 @@ class _CreateContactViewState extends State<CreateContactView> {
                   onPressed: () {
                      ContactModel contactModel = ContactModel(
                       name: viewModel.nameController.text,
-                      phone: viewModel.phoneController.text,
+                      phone: int.parse(viewModel.phoneController.text),
                       email: viewModel.emailController.text,
                       favorite: false,
                       );
