@@ -31,7 +31,7 @@ class InfoCardComponent extends StatelessWidget {
               fontSize: 18, 
               fontWeight: FontWeight.w400, 
               color: Colors.black),),
-            SizedBox(width: isContact == true ? 130 : 50),
+            SizedBox(width: isContact == true ? 115 : 50),
             isContact == true ?
             IconButtonComponent(
               width: 50, 

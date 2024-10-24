@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/contact_crud/service/contact_service_impl.dart';
-import 'package:contact_book_app/features/contact_crud/service/image_service.dart';
+import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
+import 'package:contact_book_app/features/shared/service/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,13 +21,9 @@ bool showOnlyFavorites = false;
 bool showOnlyGroups = false;
 bool showAll = true;
 
-takeImage(XFile? photo) async {
- imageService.takeImage(photo);
-}
 
 
-
-
+//Get dos contatos do banco
 Future<List<ContactModel>> fetchContacts() async {
 
   try{
@@ -44,7 +40,7 @@ Future<List<ContactModel>> fetchContacts() async {
 }
 
 
-
+//Ordenação da lista por ordem alfabetica
 List<ContactModel> orderList(List<ContactModel> contactList){
   List<ContactModel> order = contactList.toList();
   order.sort((a,b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
@@ -57,6 +53,8 @@ List<ContactModel> orderList(List<ContactModel> contactList){
   return order;
 }
 
+
+//Atualização do estado de favorito
 Future<void> updateFavorite(String? objectId, bool favorite) async{
     try{
      DocumentReference documentRef = FirebaseFirestore.instance
@@ -77,27 +75,27 @@ Future<void> updateFavorite(String? objectId, bool favorite) async{
   
 }
 
+//Se minha variável de controle for verdadeira, eu faço um get
+//dos meus contatos favoritos
 void toggleFavorite(){
   if(showOnlyFavorites == true){
     getFavoritesContacts();
   }
 
-  contactsFavorites.clear();
-
 }
 
 
+//Utilizando a lista já preenchida com os contatos no
+//primeiro get, criamos uma nova lista verificando se o 
+//atributo favorite é igual a verdadeiro
 Future<void> getFavoritesContacts() async {
  
-  var contact = await contactService.getContact();
-  contacts = contact.docs.map((doc) => ContactModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
-  
-  contacts.forEach((element) {
-    if(element.favorite == true){
-      contactsFavorites.add(element);
-    }
-  },);
-  notifyListeners();
+for (var element in contacts) {
+  if(element.favorite == true){
+    contactsFavorites.add(element);
+  }
+}
+notifyListeners();
 
  
 }

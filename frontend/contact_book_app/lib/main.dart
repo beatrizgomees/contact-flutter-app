@@ -3,7 +3,7 @@ import 'package:contact_book_app/features/notifications/notifications_service.da
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/features/auth/login_view_model.dart';
-import 'package:contact_book_app/features/notifications/NotificationsPage.dart';
+import 'package:contact_book_app/features/notifications/notifications_view.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:contact_book_app/features/auth/login_view.dart';

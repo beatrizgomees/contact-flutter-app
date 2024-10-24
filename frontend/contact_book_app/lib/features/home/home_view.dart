@@ -1,6 +1,6 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
 import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/contact_crud/service/search_contacts_service.dart';
+import 'package:contact_book_app/features/shared/service/search_contacts_service.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
 import 'package:contact_book_app/features/shared/ui/commom/card_contact_component.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/filter_button_widget.dart';
@@ -19,7 +19,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   XFile? photo;
-  HomeViewModel viewModel = HomeViewModel();
 
   @override
   void initState() {
@@ -102,14 +101,14 @@ _buildFiltersButton(BuildContext context, HomeViewModel viewModel){
               ),
               FilterButton(label: "Favorites", onPressed: () {
               if(!viewModel.showOnlyFavorites){
-                viewModel.showAll = false;
-                viewModel.showOnlyFavorites = true;
+                viewModel.showAll = false; //Garante que o filtro All seja desativado 
+                viewModel.showOnlyFavorites = true; //Ativa o filtro favorites
                 viewModel.toggleFavorite();
               }
               },
               isFavorite: viewModel.showOnlyFavorites,
             ),
-              //FilterButton(label: "Groups"),
+              
             ],
           ),
         )

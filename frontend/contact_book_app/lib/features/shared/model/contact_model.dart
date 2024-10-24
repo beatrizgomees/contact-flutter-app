@@ -4,7 +4,7 @@ class ContactModel {
    String _phone = "";
    String? _email;
    String? _photo;
-   bool? _favorite;
+   bool _favorite = false;
 
   ContactModel(
       {String? objectId,
@@ -43,7 +43,7 @@ class ContactModel {
   set email(String? email) => _email = email;
 
   bool? get favorite => _favorite;
-  set favorite(bool? favorite) => _favorite = favorite;
+  set favorite(bool? favorite) => _favorite = favorite!;
   
   factory ContactModel.fromMap(Map<String, dynamic> data) {
   return ContactModel(
