@@ -1,4 +1,4 @@
-import 'package:contact_book_app/ui/commum_components/icon_button_component.dart';
+import 'package:contact_book_app/features/shared/ui/commom/icon_button_component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -31,13 +31,12 @@ class InfoCardComponent extends StatelessWidget {
               fontSize: 18, 
               fontWeight: FontWeight.w400, 
               color: Colors.black),),
-            SizedBox(width: isContact == true ? 130 : 50),
+            SizedBox(width: isContact == true ? 115 : 50),
             isContact == true ?
             IconButtonComponent(
-              width: 50, 
-              height: 50, 
               colorContainer: Colors.white, 
-              colorIcon: Colors.black,
+              colorshadow: Colors.grey.withOpacity(0.5),
+              isIcon: true,
                 icon: Icon(Bootstrap.heart)) :  SizedBox.shrink(),
           ] ,
         ),

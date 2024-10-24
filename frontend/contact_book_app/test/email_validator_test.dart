@@ -1,5 +1,5 @@
 
-import 'package:contact_book_app/utils/validators/email_validator.dart';
+import 'package:contact_book_app/features/shared/utils/validators/email_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){

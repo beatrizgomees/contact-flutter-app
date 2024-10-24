@@ -1,15 +1,17 @@
+import 'dart:ffi';
+
 class ContactModel {
    String? _objectId;
    String? _name;
-   String _phone = "";
+   int? _phone;
    String? _email;
    String? _photo;
-   bool? _favorite;
+   bool _favorite = false;
 
   ContactModel(
       {String? objectId,
         String? name,
-       required String phone,
+       required int phone,
       String? email,
       bool? favorite,
       String? photo}) {
@@ -21,6 +23,9 @@ class ContactModel {
     }
     if (name != null) {
       _name = name;
+    }
+     if (phone != null) {
+      _phone = phone;
     }
     _phone = phone;
       if (email != null) {
@@ -37,13 +42,13 @@ class ContactModel {
   set name(String? name) => _name = name!;
   String? get photo => _photo;
   set photo(String? photo) => _photo = photo;
-  String? get phone => _phone;
-  set phone(String? phone) => _phone = phone!;
+  int? get phone => _phone;
+  set phone(int? phone) => _phone = phone!;
   String? get email => _email;
   set email(String? email) => _email = email;
 
   bool? get favorite => _favorite;
-  set favorite(bool? favorite) => _favorite = favorite;
+  set favorite(bool? favorite) => _favorite = favorite!;
   
   factory ContactModel.fromMap(Map<String, dynamic> data) {
   return ContactModel(

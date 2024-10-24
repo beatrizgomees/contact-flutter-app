@@ -1,6 +1,6 @@
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/ui/widgets/favorite_button_widget.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/favorite_button_widget.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class _CardContactComponentState extends State<CardContactComponent> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.contactModel.name}", style: AppTheme.whiteFontStyleContactName,),
+              Text("${widget.contactModel.name}", style: AppTheme.whiteFontStyleTitle,),
                 Text("${widget.contactModel.email}", style: AppTheme.whiteFontStyleContatcSubtitle,
                 ),
 

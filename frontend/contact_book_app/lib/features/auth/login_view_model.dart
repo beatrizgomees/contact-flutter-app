@@ -1,5 +1,5 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
-import 'package:contact_book_app/utils/navigators/navigator_to.dart';
+import 'package:contact_book_app/features/shared/utils/navigators/navigator_to.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +11,7 @@ class LoginViewModel extends ChangeNotifier{
 
   AuthServiceImpl authServiceImpl = AuthServiceImpl();
 
+// Fazer login com essas credenciais
   Future<void> signInWithEmailAndPassword(BuildContext context) async {
     try {
       await authServiceImpl.signInWithEmailAndPassword(
@@ -32,19 +33,6 @@ class LoginViewModel extends ChangeNotifier{
 
   void NavigateToHome(BuildContext context){
      navigateTo(context, "/home");
-  }
-
-  Future<void> createUserWithEmailAndPassword() async {
-    try {
-      await authServiceImpl.createUserWithEmailAndPassword(
-        email: emailController.text, 
-        password: passwordController.text
-      );
-
-    } on FirebaseAuthException catch (e){
-      errorMessage = e.message;
-      notifyListeners();
-    }
   }
 
   Widget _title(){

@@ -1,15 +1,16 @@
 import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/features/contact_crud/service/contact_service.dart';
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/service/contact_service.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/utils/constants/constants.dart';
 
 class ContactServiceImpl  implements ContactService {
   
 
-  final CollectionReference contacts = 
-  FirebaseFirestore.instance.collection('contatos');
+  var contacts = Constants.contacts;
 
 
+  //Create
   @override
   Future<void> createContact(ContactModel contactModel) async {
     final DocumentReference docRef = await contacts.add({
@@ -20,7 +21,7 @@ class ContactServiceImpl  implements ContactService {
     'favorite': contactModel.favorite
    });
 
-   final String id = docRef.id;
+   final String id = docRef.id; //Atribuição do valor do id 
    contacts.doc(id).update({'objectId': id});
 
 
@@ -31,6 +32,7 @@ class ContactServiceImpl  implements ContactService {
        throw UnimplementedError();
   }
   
+  //Read
   @override
   Future<QuerySnapshot> getContact() async {
     var contatcs =  await contacts.get();

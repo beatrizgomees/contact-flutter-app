@@ -1,16 +1,15 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
-import 'package:contact_book_app/features/contact_crud/edit_list_contact_view_model.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/features/auth/login_view_model.dart';
-import 'package:contact_book_app/features/notifications/NotificationsPage.dart';
+import 'package:contact_book_app/features/notifications/notifications_view.dart';
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:contact_book_app/features/auth/login_view.dart';
 import 'package:contact_book_app/features/register/register_view.dart';
 import 'package:contact_book_app/features/register/register_view_model.dart';
-import 'package:contact_book_app/ui/widgets/navigation_bar.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreateViewModel()),
-        ChangeNotifierProvider(create: (_) => EditListContactViewModel()),
         ChangeNotifierProvider(create: (_) => RegisterViewModel())
       ],
       child: MaterialApp(

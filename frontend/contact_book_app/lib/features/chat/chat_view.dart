@@ -1,5 +1,5 @@
-import 'package:contact_book_app/features/contact_crud/model/contact_model.dart';
-import 'package:contact_book_app/utils/themes/AppTheme.dart';
+import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -61,7 +61,7 @@ class _ChatViewState extends State<ChatView> {
                 fillColor: Colors.white,
                 focusColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   gapPadding: 20,
                   borderRadius: BorderRadius.circular(10),
                 ),
