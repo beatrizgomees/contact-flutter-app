@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contact_book_app/domain/service/user_service_impl.dart';
+import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:contact_book_app/features/shared/ui/commom/snackbar_component.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
-import 'package:contact_book_app/features/shared/service/image_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service_impl.dart';
+import 'package:contact_book_app/domain/service/image_service.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 
 class CreateViewModel extends ChangeNotifier{
 
@@ -15,10 +18,11 @@ TextEditingController emailController = TextEditingController();
 XFile? photo;
 var imageService = ImageService();
 var contactService = ContactServiceImpl();
-var uuid = Uuid();
 List<ContactModel> contacts = [];
 NotificationsService notificationsService = NotificationsService();
 bool? selectEdit = false;
+AuthServiceImpl authServiceImpl = AuthServiceImpl();
+
 
 takeImage(XFile? photo) async {
  imageService.takeImage(photo);
@@ -29,7 +33,25 @@ createContact(ContactModel contactModel) async {
   contactModel.phone = int.parse(phoneController.text);
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
-  await contactService.createContact(contactModel);
+
+  final User? firebaseUser = FirebaseAuth.instance.currentUser;
+  if(firebaseUser != null){
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid);
+ 
+  final userSnapshot = await userDoc.get();
+    if (userSnapshot.exists) {
+      List<dynamic> contactList = userSnapshot.data()?['contacts'] ?? [];
+ 
+    // Adicionar o novo contato à lista
+      contactList.add({
+        'name': contactModel.name,
+        'email': contactModel.email,
+        'phone': contactModel.phone,
+        'favorite': contactModel.favorite,
+      });
+ }
+
+  }
 
   await updateListContact();
   notifyListeners();
@@ -83,9 +105,11 @@ void actionCreate(BuildContext context){
     email: emailController.text,
   );
 
+  
+
   NotificationsService.showSimpleNotification(
     title: 'Contato criado com sucesso', 
-    body: 'Fale agor com ${contactModel.name}', 
+    body: 'Fale agora com ${contactModel.name}', 
   payload: '');
   
 

@@ -1,10 +1,11 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/search_contacts_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/search_contacts_service.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
 import 'package:contact_book_app/features/shared/ui/commom/card_contact_component.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/navigation_bar.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,7 +41,21 @@ class _HomeViewState extends State<HomeView> {
       body:SingleChildScrollView(
            child: _buildListContact(context, viewModel)
              ), 
-        
+        // drawer: Drawer(
+        //   backgroundColor: AppTheme.backgroundPrincipalColor,
+        //   child: ListView(
+        //     children: [
+            
+        //     TextButton(onPressed: (){}, child: const Text('Create your filters', style: TextStyle(color: Colors.white),)),
+        //     TextButton(onPressed: (){}, child: const Text('Show online', style: TextStyle(color: Colors.white))),
+        //     TextButton.icon(onPressed: (){
+        //       viewModel.logoutUser();
+        //     }, icon: const Icon(Icons.logout, color: Colors.white,), label: const Text('Logout', style: TextStyle(color: Colors.white)),)
+            
+        //     ],
+        //   ),
+        // ),
+        bottomNavigationBar: NavigationBottomBar(),
           );
         }
       }
@@ -63,21 +78,27 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
       },
     ),
     ],
-    leading:Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(child: Text("Chats", style: TextStyle(fontSize: 20, color: Colors.white),)),
-           IconButton(onPressed: () {}, icon: const Icon(Icons.menu),
-          iconSize: 30.0,
-          color: Colors.white,
-           ),
-           _buildFiltersButton(context, viewModel)
-          ],
-        ),
-      ),
+    // leading:Padding(
+    //     padding: const EdgeInsets.all(10.0),
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.end,
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         const Center(child: Text("Chats", style: TextStyle(fontSize: 20, color: Colors.white),)),
+    //        Builder(
+    //         builder: (context) =>
+    //           IconButton(
+    //           onPressed: () {
+    //            Scaffold.of(context).openDrawer();
+    //          }, icon: const Icon(Icons.menu),
+    //                    iconSize: 30.0,
+    //                    color: Colors.white,
+    //          ),
+    //        ),
+    //        _buildFiltersButton(context, viewModel)
+    //       ],
+    //     ),
+    //   ),
   );
 }
 
@@ -108,6 +129,14 @@ _buildFiltersButton(BuildContext context, HomeViewModel viewModel){
               },
               isFavorite: viewModel.showOnlyFavorites,
             ),
+
+            FilterButton(label: 'Archives', onPressed: () {
+              if(!viewModel.showOnlyArchives){
+                viewModel.showAll = false;
+                viewModel.showOnlyArchives = true;
+                viewModel.getArchiveContacts();
+              }
+            })
               
             ],
           ),
@@ -166,20 +195,30 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
       itemCount: displayedContacts.length,
       itemBuilder: (context, index) {
         var contact = displayedContacts[index];
+          
           return GestureDetector(
             child: Dismissible(
-              key: Key(viewModel.contacts[index].toString()),
-              background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
-              secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
+               key: ValueKey<String>(displayedContacts[index].toString()),
+               confirmDismiss: (DismissDirection direction) async {
+                  if(direction == DismissDirection.startToEnd){
+                    viewModel.contactsArchives.add(contact);
+                  }
+               },
               onDismissed: (direction) {
-                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Item ${viewModel.contacts[index].toString()} arquivado')),
-                );
+                displayedContacts.removeAt(index);
               },
+
+                background: Container(
+                color: Colors.blue, 
+                child: const Icon(Icons.archive_outlined, size: 30,),
+                ),
+              secondaryBackground: Container(color: Colors.red, child: const Icon(Icons.delete_outline, size: 30,),),
               child: CardContactComponent(
                contactModel: contact,
                 ),
             ),
+
+            
               onTap: () {
               Navigator.push(
                     context,

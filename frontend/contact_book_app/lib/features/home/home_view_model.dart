@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
-import 'package:contact_book_app/features/shared/service/image_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service_impl.dart';
+import 'package:contact_book_app/domain/service/image_service.dart';
+import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,9 +18,12 @@ XFile? photo;
 List<ContactModel> contacts = [];
 List<ContactModel> contactOrder = [];
 List<ContactModel> contactsFavorites = [];
+List<ContactModel> contactsArchives = [];
 bool showOnlyFavorites = false;
-bool showOnlyGroups = false;
+bool showOnlyArchives = false;
 bool showAll = true;
+AuthServiceImpl authServiceImpl = AuthServiceImpl();
+
 
 
 
@@ -84,12 +88,19 @@ void toggleFavorite(){
 
 }
 
+void toggleArchives(){
+  if(showOnlyArchives == true){
+    getArchiveContacts();
+  }
+}
+
+
 
 //Utilizando a lista já preenchida com os contatos no
 //primeiro get, criamos uma nova lista verificando se o 
 //atributo favorite é igual a verdadeiro
 Future<void> getFavoritesContacts() async {
- 
+contactsFavorites.clear();
 for (var element in contacts) {
   if(element.favorite == true){
     contactsFavorites.add(element);
@@ -100,7 +111,23 @@ notifyListeners();
  
 }
 
+Future<void> getArchiveContacts() async {
+  for (var element in contacts) {
+  if(element.archive == true){
+      contactsArchives.add(element);
+  }
+}
+notifyListeners();
+}
 
 
+void removeItem(int index) {
+  contacts.removeAt(index);
+  notifyListeners(); // Notifica os listeners sobre a atualização
+  }
+
+void logoutUser(){
+  authServiceImpl.signOut();
+}
 
 }

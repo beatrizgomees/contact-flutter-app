@@ -26,7 +26,7 @@ List<Widget> pages = [
       const HomeView(),
       const CallHistoryView(),
       CreateContactView(),
-      const Profilepage(),
+      Profilepage(),
     
       
   ];

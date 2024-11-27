@@ -31,7 +31,7 @@ class NotificationsService{
   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   final fCMToken = await _firebaseMessaging.getToken();
   print('Token: $fCMToken');
-  bool isUserLoggedin = await AuthServiceImpl().isLoggedIn();
+  bool isUserLoggedin = await AuthServiceImpl().isLoggedInValue();
   if (isUserLoggedin) {
     saveUserToken(fCMToken!);
     print("save to firestore");
@@ -78,6 +78,7 @@ Future firebaseBackgroundMessage(RemoteMessage message) async {
   Map<String, dynamic> data = {
     "email": currentUser!.email,
     "token": token,
+
   };
   try{
     await FirebaseFirestore.instance

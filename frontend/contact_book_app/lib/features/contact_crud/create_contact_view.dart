@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/ui/commom/text_form_field_component.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/contact_crud/create_view_model.dart';

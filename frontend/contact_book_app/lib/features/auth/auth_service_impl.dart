@@ -1,11 +1,13 @@
+import 'package:contact_book_app/domain/model/user_model.dart';
 import 'package:contact_book_app/features/auth/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServiceImpl implements AuthService{
   
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => _firebaseAuth.currentUser;
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  late Stream<User?> authStateChanges = _firebaseAuth.authStateChanges();
+  User? _user;
   
   @override
   Future<void> signInWithEmailAndPassword({required String email, required String password}) async {
@@ -15,7 +17,11 @@ class AuthServiceImpl implements AuthService{
       
     );
 
+    initAuth();
+
   }
+  
+
   
   @override
   Future<void> createUserWithEmailAndPassword({
@@ -35,9 +41,25 @@ class AuthServiceImpl implements AuthService{
   }
 
   @override
-  Future<bool> isLoggedIn() async {
+  Future<void> isLoggedIn() async {
+  var user = FirebaseAuth.instance.currentUser;
+
+  }
+
+  @override
+  Future<bool> isLoggedInValue() async {
   var user = FirebaseAuth.instance.currentUser;
   return user != null;
+  }
+  
+  @override
+  Future<void> initAuth() async {
+    _firebaseAuth = FirebaseAuth.instance;
+    authStateChanges = _firebaseAuth.authStateChanges();
+    authStateChanges.listen((User? user){
+        _user = user;
+        print(user!.displayName);
+    });
   }
 
   

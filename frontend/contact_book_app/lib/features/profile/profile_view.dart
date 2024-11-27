@@ -1,3 +1,4 @@
+import 'package:contact_book_app/domain/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/ui/commom/icon_button_component.dart';
 import 'package:contact_book_app/features/shared/ui/commom/info_card_component.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
@@ -7,7 +8,9 @@ import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class Profilepage extends StatefulWidget {
-  const Profilepage({super.key});
+  Profilepage({super.key,  this.contactModel});
+  
+  ContactModel? contactModel;
 
   @override
   State<Profilepage> createState() => _ProfilepageState();
@@ -35,7 +38,7 @@ class _ProfilepageState extends State<Profilepage> {
               child: 
               Column(
               children: [
-               Text("Beatriz Gomes", 
+               Text(widget.contactModel!.name!, 
               style: AppTheme.titleProfileName),
 
               const SizedBox(height: 20),
@@ -88,6 +91,8 @@ class _ProfilepageState extends State<Profilepage> {
     );
   }
 }
+
+
 _buildTopSectionProfileView(BuildContext context){
   return Container(
     width: MediaQuery.of(context).size.width,

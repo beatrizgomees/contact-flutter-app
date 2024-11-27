@@ -25,8 +25,8 @@ class LoginViewModel extends ChangeNotifier{
     } on FirebaseAuthException catch (e){
       errorMessage = e.message;
       print(errorMessage);
-       print(emailController.text);
-        print(passwordController.text);
+      print(emailController.text);
+      print(passwordController.text);
       notifyListeners();
     }
   }
