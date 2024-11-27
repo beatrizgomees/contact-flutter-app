@@ -1,4 +1,4 @@
-package com.beatrizgomees.github.contact_book_app
+package com.contact.app
 
 import io.flutter.embedding.android.FlutterActivity
 
