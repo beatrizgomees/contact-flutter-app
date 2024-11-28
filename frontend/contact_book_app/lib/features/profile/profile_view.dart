@@ -1,3 +1,4 @@
+import 'package:contact_book_app/features/shared/ui/commom/button_transparent_component.dart';
 import 'package:contact_book_app/features/shared/ui/commom/icon_button_component.dart';
 import 'package:contact_book_app/features/shared/ui/commom/info_card_component.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
@@ -19,7 +20,10 @@ class _ProfilepageState extends State<Profilepage> {
     return Scaffold(
       backgroundColor: AppTheme.backgroundPrincipalColor,
       appBar: AppBar(
-        backgroundColor:AppTheme.backgroundPrincipalColor
+        backgroundColor:AppTheme.backgroundPrincipalColor,
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.logout), color: Colors.white,)
+        ],
       ),
      body: Stack(
        children: [
@@ -64,19 +68,51 @@ class _ProfilepageState extends State<Profilepage> {
                   
                   _buildListHorizontalSocialMedia(context),
 
-                   Row(
+                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Call history", style: AppTheme.blackFontStyleTitle,),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: TextButton(onPressed: () {}, child: const Text("Show more")),
-                      )
+                     Padding(
+                       padding: EdgeInsets.all(8.0),
+                       child: Text('Settings', style: TextStyle(fontSize: 20),),
+                     ),
+                     
                     ],
-                   )
+                   ),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: ButtonTransparentComponent(
+                          width: 130,
+                          height: 30,
+                          colorBorder: Color.fromRGBO(20, 29, 41,1),
+                          border: 20,
+                          title: 'Show online',
+                          colortitle: Colors.black,
+                          sizeTitle: 15,
+                          icon: Icons.mobile_off,
+                          iconSize: 20,
+                         ),
+                       ),
+                        Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ButtonTransparentComponent(
+                          width: 180,
+                          height: 30,
+                          colorBorder: Color.fromRGBO(20, 29, 41,1),
+                          border: 20,
+                          title: 'Show Notifications',
+                          colortitle: Colors.black,
+                          sizeTitle: 15,
+                          iconSize: 20,
+                          icon: Icons.notifications,
+                        ),
+                      )
+                     ],
+                   ), 
+                   
                   ],
                 ),
                )

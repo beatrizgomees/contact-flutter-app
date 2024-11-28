@@ -18,7 +18,7 @@ class InfoCardComponent extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 50,
+        height: 30,
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20)
         ),
@@ -32,12 +32,7 @@ class InfoCardComponent extends StatelessWidget {
               fontWeight: FontWeight.w400, 
               color: Colors.black),),
             SizedBox(width: isContact == true ? 115 : 50),
-            isContact == true ?
-            IconButtonComponent(
-              colorContainer: Colors.white, 
-              colorshadow: Colors.grey.withOpacity(0.5),
-              isIcon: true,
-                icon: Icon(Bootstrap.heart)) :  SizedBox.shrink(),
+        
           ] ,
         ),
         ),
