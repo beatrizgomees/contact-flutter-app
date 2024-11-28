@@ -22,80 +22,82 @@ class _CreateContactViewState extends State<CreateContactView> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: AppTheme.backgroundPrincipalColor),
-        body: ChangeNotifierProvider(
-            create: (context) => CreateViewModel(),
-        child: Consumer<CreateViewModel>(
-          builder: (context, viewModel, _) {
-          return Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-              
-              Divider(),
-
-              const SizedBox(height: 50),
-              Text("Add new Contact", style: AppTheme.titleWhiteFont,),
-              const SizedBox(height: 50),
-                    
-                      
-              TextFormFieldComponent(
-                key: const Key('name_key'),
-                keyboardType: TextInputType.name,
-                label: "Name",
-                controllerText: viewModel.nameController,
-                value: viewModel.nameController.text,
-                icon: const Icon(Icons.person),
-              ),
-              const SizedBox(height: 20),
-                    
-              TextFormFieldComponent(
-                key: const Key("phone_key"),
-                label: "Phone Number", 
-                keyboardType: TextInputType.phone, 
-                controllerText: viewModel.phoneController, 
-                icon: const Icon(Icons.phone_android_outlined), 
-                value: viewModel.phoneController.text,
-                ),
-               const SizedBox(height: 20),
-            
-              TextFormFieldComponent(
-                  key: const Key('email_key'),
-                  keyboardType: TextInputType.emailAddress,
-                  label: "Email",
-                  controllerText: viewModel.emailController,
-                  value: viewModel.emailController.text,
-                  icon: const Icon(Icons.email),
-                ),
-                 
-            
-            const SizedBox(height: 50),
-             ElevatedButton.icon(
-                  onPressed: () {
-                     ContactModel contactModel = ContactModel(
-                      name: viewModel.nameController.text,
-                      phone: int.parse(viewModel.phoneController.text),
-                      email: viewModel.emailController.text,
-                      favorite: false,
-                      );
-                    viewModel.handleCreate(contactModel, context);
+        body: SafeArea(
+          child: ChangeNotifierProvider(
+              create: (context) => CreateViewModel(),
+          child: Consumer<CreateViewModel>(
+            builder: (context, viewModel, _) {
+            return Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                
+                Divider(),
           
-                    viewModel.updateListContact();
-                  },
-                  label: const Text("Create", style: TextStyle(color: Colors.black),),
-                  icon: const Icon(Icons.create_rounded, color: Colors.black,),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.detailsColor, 
-                     
-                    ),
+                const SizedBox(height: 10),
+                Text("Add new Contact", style: AppTheme.titleWhiteFont,),
+                const SizedBox(height: 50),
+                      
+                        
+                TextFormFieldComponent(
+                  key: const Key('name_key'),
+                  keyboardType: TextInputType.name,
+                  label: "Name",
+                  controllerText: viewModel.nameController,
+                  value: viewModel.nameController.text,
+                  icon: const Icon(Icons.person),
+                ),
+                const SizedBox(height: 20),
+                      
+                TextFormFieldComponent(
+                  key: const Key("phone_key"),
+                  label: "Phone Number", 
+                  keyboardType: TextInputType.phone, 
+                  controllerText: viewModel.phoneController, 
+                  icon: const Icon(Icons.phone_android_outlined), 
+                  value: viewModel.phoneController.text,
                   ),
-                ],
-              ),
-          );
-          },
+                 const SizedBox(height: 20),
+              
+                TextFormFieldComponent(
+                    key: const Key('email_key'),
+                    keyboardType: TextInputType.emailAddress,
+                    label: "Email",
+                    controllerText: viewModel.emailController,
+                    value: viewModel.emailController.text,
+                    icon: const Icon(Icons.email),
+                  ),
+                   
+              
+              const SizedBox(height: 50),
+               ElevatedButton.icon(
+                    onPressed: () {
+                       ContactModel contactModel = ContactModel(
+                        name: viewModel.nameController.text,
+                        phone: int.parse(viewModel.phoneController.text),
+                        email: viewModel.emailController.text,
+                        favorite: false,
+                        );
+                      viewModel.handleCreate(contactModel, context);
+            
+                      viewModel.updateListContact();
+                    },
+                    label: const Text("Create", style: TextStyle(color: Colors.black),),
+                    icon: const Icon(Icons.create_rounded, color: Colors.black,),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.detailsColor, 
+                       
+                      ),
+                    ),
+                  ],
+                ),
+            );
+            },
+          ),
+                ),
         ),
-      ),
     );
   }
 }

@@ -53,6 +53,7 @@ dependencies:
   curved_labeled_navigation_bar: ^2.0.2
   icons_plus: ^5.0.0
   animated_search_bar: ^2.7.2
+  hidable: ^1.0.6
 
 dev_dependencies:
   flutter_test:
