@@ -1,7 +1,7 @@
 import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/features/shared/service/contact_service.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/utils/constants/constants.dart';
 
 class ContactServiceImpl  implements ContactService {
@@ -18,7 +18,8 @@ class ContactServiceImpl  implements ContactService {
     'email': contactModel.email,
     'phone': contactModel.phone,
     'objectId': contactModel.objectId,
-    'favorite': contactModel.favorite
+    'favorite': contactModel.favorite,
+    'archive': contactModel.archive
    });
 
    final String id = docRef.id; //Atribuição do valor do id 

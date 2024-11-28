@@ -1,7 +1,7 @@
 import 'package:contact_book_app/features/shared/ui/commom/snackbar_component.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
-import 'package:contact_book_app/features/shared/service/image_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service_impl.dart';
+import 'package:contact_book_app/domain/service/image_service.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

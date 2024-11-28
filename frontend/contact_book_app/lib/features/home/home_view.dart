@@ -1,8 +1,9 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/search_contacts_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/search_contacts_service.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
 import 'package:contact_book_app/features/shared/ui/commom/card_contact_component.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/dimissible_button_widget.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
@@ -19,6 +20,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   XFile? photo;
+ 
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +31,7 @@ class _HomeViewState extends State<HomeView> {
    
   }
 
+ 
   @override
   Widget build(BuildContext context) {
 
@@ -44,12 +48,14 @@ class _HomeViewState extends State<HomeView> {
           
           );
         }
+
+        
       }
 
 _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
   return AppBar(
     title: const Text("Chats"),
-    toolbarHeight: 100,
+    toolbarHeight: 120,
     backgroundColor: AppTheme.backgroundPrincipalColor,
     leadingWidth: MediaQuery.of(context).size.width,
     actions: [
@@ -90,6 +96,7 @@ _buildFiltersButton(BuildContext context, HomeViewModel viewModel){
                 if(!viewModel.showAll){
                   viewModel.showOnlyFavorites = false; // Garante que o filtro de favoritos seja desativado
                   viewModel.showAll = true; // Ativa o filtro "All"
+                  viewModel.showOnlyArchives = false;
                   viewModel.fetchContacts(); 
                 }
               },
@@ -100,10 +107,22 @@ _buildFiltersButton(BuildContext context, HomeViewModel viewModel){
               if(!viewModel.showOnlyFavorites){
                 viewModel.showAll = false; //Garante que o filtro All seja desativado 
                 viewModel.showOnlyFavorites = true; //Ativa o filtro favorites
+                viewModel.showOnlyArchives = false;
                 viewModel.toggleFavorite();
               }
               },
               isFavorite: viewModel.showOnlyFavorites,
+            ), 
+            
+            FilterButton(label: "Archives", onPressed: () {
+              if(!viewModel.showOnlyArchives){
+                viewModel.showAll = false; //Garante que o filtro All seja desativado 
+                viewModel.showOnlyArchives = true; //Ativa o filtro favorites
+                viewModel.showOnlyFavorites = false;
+                viewModel.toggleArchives();
+              }
+              },
+              isArchives: viewModel.showOnlyArchives,
             ),
               
             ],
@@ -144,11 +163,15 @@ List<ContactModel> buildListsWithFilters(HomeViewModel viewModel, var snapshot){
       displayedContacts = allContacts;
      }
     }
+    if(viewModel.showOnlyArchives){
+      displayedContacts = viewModel.contactsArchives;
+    }
     return displayedContacts;
 }
 
 _buildListContact(BuildContext context, HomeViewModel viewModel){
   final ScrollController scrollController = ScrollController();
+  bool isArchive = false;
 
   return FutureBuilder(
     future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
@@ -167,18 +190,21 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
         var contact = displayedContacts[index];
           return GestureDetector(
             child: Dismissible(
-              key: Key(viewModel.contacts[index].toString()),
-              background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
-              secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
-              onDismissed: (direction) {
-                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Item ${viewModel.contacts[index].toString()} arquivado')),
-                );
-              },
-              child: CardContactComponent(
-               contactModel: contact,
+                key: Key(contact.toString()),
+                background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
+                secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
+                  onDismissed: (direction) {
+                      isArchive = true;
+                      viewModel.addArchivesContactsList(isArchive, contact, displayedContacts);
+  
+                 
+                },
+
+                child: CardContactComponent(
+                contactModel: contact,
                 ),
-            ),
+                        
+                ),
               onTap: () {
               Navigator.push(
                     context,
@@ -194,3 +220,4 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
         }
     );
 }
+

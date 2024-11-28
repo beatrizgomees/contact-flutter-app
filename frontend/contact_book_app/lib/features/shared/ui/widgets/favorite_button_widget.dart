@@ -1,4 +1,4 @@
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 

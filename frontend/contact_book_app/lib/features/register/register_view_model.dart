@@ -1,6 +1,6 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service_impl.dart';
 import 'package:contact_book_app/features/shared/utils/navigators/navigator_to.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

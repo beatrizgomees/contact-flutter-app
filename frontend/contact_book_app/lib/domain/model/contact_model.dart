@@ -7,6 +7,7 @@ class ContactModel {
    String? _email;
    String? _photo;
    bool _favorite = false;
+   bool _archive = false;
 
   ContactModel(
       {String? objectId,
@@ -14,6 +15,7 @@ class ContactModel {
        required int phone,
       String? email,
       bool? favorite,
+      bool? archive,
       String? photo}) {
     if (objectId != null) {
       _objectId = objectId;
@@ -34,6 +36,10 @@ class ContactModel {
 
     if(favorite != null){
       _favorite = favorite;
+    } 
+    
+    if(archive != null){
+      _archive = archive;
     }
   }
   String? get objectId => _objectId;
@@ -48,7 +54,10 @@ class ContactModel {
   set email(String? email) => _email = email;
 
   bool? get favorite => _favorite;
-  set favorite(bool? favorite) => _favorite = favorite!;
+  set favorite(bool? favorite) => _favorite = favorite!;  
+  
+  bool? get archive => _archive;
+  set archive(bool? favorite) => _archive = archive!;
   
   factory ContactModel.fromMap(Map<String, dynamic> data) {
   return ContactModel(
@@ -57,7 +66,8 @@ class ContactModel {
     phone: data['phone'],
     photo: data['photo'],
     email: data['email'],
-    favorite: data['favorite']
+    favorite: data['favorite'],
+    archive: data['archive']
     
   );
 }
@@ -69,7 +79,8 @@ class ContactModel {
       'phone': phone,
       'email': email,
       'photo': photo,
-      'favorite': favorite
+      'favorite': favorite,
+      'archive': archive
     };
   }
 }
