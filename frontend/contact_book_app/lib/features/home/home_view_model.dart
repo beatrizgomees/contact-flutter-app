@@ -89,7 +89,7 @@ void toggleFavorite(){
 //primeiro get, criamos uma nova lista verificando se o 
 //atributo favorite é igual a verdadeiro
 Future<void> getFavoritesContacts() async {
- 
+contactsFavorites.clear();
 for (var element in contacts) {
   if(element.favorite == true){
     contactsFavorites.add(element);
