@@ -19,7 +19,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   XFile? photo;
-
   @override
   void initState() {
     super.initState();
@@ -37,10 +36,12 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: _buildTopSectionHomeView(context, viewModel),
       backgroundColor: AppTheme.backgroundPrincipalColor,
-      body:SingleChildScrollView(
-           child: _buildListContact(context, viewModel)
-             ), 
-        
+      body:SafeArea(
+        child: SingleChildScrollView(
+             child: _buildListContact(context, viewModel)
+               ),
+      ), 
+          
           );
         }
       }
@@ -48,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
 _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
   return AppBar(
     title: const Text("Chats"),
-    toolbarHeight: 150,
+    toolbarHeight: 100,
     backgroundColor: AppTheme.backgroundPrincipalColor,
     leadingWidth: MediaQuery.of(context).size.width,
     actions: [
@@ -70,10 +71,6 @@ _buildTopSectionHomeView(BuildContext context, HomeViewModel viewModel){
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Center(child: Text("Chats", style: TextStyle(fontSize: 20, color: Colors.white),)),
-           IconButton(onPressed: () {}, icon: const Icon(Icons.menu),
-          iconSize: 30.0,
-          color: Colors.white,
-           ),
            _buildFiltersButton(context, viewModel)
           ],
         ),
@@ -151,6 +148,8 @@ List<ContactModel> buildListsWithFilters(HomeViewModel viewModel, var snapshot){
 }
 
 _buildListContact(BuildContext context, HomeViewModel viewModel){
+  final ScrollController scrollController = ScrollController();
+
   return FutureBuilder(
     future: Provider.of<HomeViewModel>(context, listen: false).fetchContacts(),
     builder: (context, snapshot) {
@@ -161,8 +160,8 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      controller: scrollController,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: displayedContacts.length,
       itemBuilder: (context, index) {
         var contact = displayedContacts[index];
