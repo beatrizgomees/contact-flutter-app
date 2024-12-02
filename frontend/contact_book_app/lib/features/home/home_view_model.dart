@@ -125,11 +125,11 @@ Future<void> addArchivesContactsList(bool isArchive, ContactModel contact, List<
 
 
   if(isArchive){
-  displayedContacts.remove(contact);
   contactsArchives.add(contact);  // Adiciona ao arquivo
   contact.archive = isArchive;
   }
   // Atualiza os dados
+  showContactsArchives.clear();
   showContactsArchives.addAll(contactsArchives);
  
   

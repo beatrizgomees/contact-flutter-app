@@ -6,6 +6,7 @@ import 'package:contact_book_app/features/shared/ui/commom/card_contact_componen
 import 'package:contact_book_app/features/shared/ui/widgets/dimissible_button_widget.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/filter_button_widget.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/navigation_bar.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
              child: _buildListContact(context, viewModel)
                ),
       ), 
-          
+      
           );
         }
 
@@ -189,22 +190,9 @@ _buildListContact(BuildContext context, HomeViewModel viewModel){
       itemBuilder: (context, index) {
         var contact = displayedContacts[index];
           return GestureDetector(
-            child: Dismissible(
-                key: Key(contact.toString()),
-                background: Container(color: Colors.blue, child: Icon(Icons.archive_outlined, size: 30,),),
-                secondaryBackground: Container(color: Colors.red, child: Icon(Icons.delete_outline, size: 30,),),
-                  onDismissed: (direction) {
-                      isArchive = true;
-                      viewModel.addArchivesContactsList(isArchive, contact, displayedContacts);
-  
-                 
-                },
-
-                child: CardContactComponent(
-                contactModel: contact,
-                ),
-                        
-                ),
+            child: CardContactComponent(
+            contactModel: contact,
+            ),
               onTap: () {
               Navigator.push(
                     context,
