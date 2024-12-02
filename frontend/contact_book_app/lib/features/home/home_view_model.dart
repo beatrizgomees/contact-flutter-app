@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/features/shared/model/contact_model.dart';
-import 'package:contact_book_app/features/shared/service/contact_service_impl.dart';
-import 'package:contact_book_app/features/shared/service/image_service.dart';
+import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/domain/service/contact_service_impl.dart';
+import 'package:contact_book_app/domain/service/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,7 +17,10 @@ XFile? photo;
 List<ContactModel> contacts = [];
 List<ContactModel> contactOrder = [];
 List<ContactModel> contactsFavorites = [];
+List<ContactModel> contactsArchives = [];
+List<ContactModel> showContactsArchives = [];
 bool showOnlyFavorites = false;
+bool showOnlyArchives = false;
 bool showOnlyGroups = false;
 bool showAll = true;
 
@@ -75,11 +78,16 @@ Future<void> updateFavorite(String? objectId, bool favorite) async{
   
 }
 
-//Se minha variável de controle for verdadeira, eu faço um get
-//dos meus contatos favoritos
 void toggleFavorite(){
   if(showOnlyFavorites == true){
     getFavoritesContacts();
+  }
+
+}
+
+void toggleArchives(){
+  if(showOnlyArchives == true){
+    getArchivesContacts();
   }
 
 }
@@ -99,6 +107,39 @@ notifyListeners();
 
  
 }
+
+Future<void> getArchivesContacts() async {
+showContactsArchives.clear();
+for(var element in contacts){
+  if(element.archive == true){
+    showContactsArchives.add(element);
+  }
+}
+  notifyListeners();
+}
+
+
+Future<void> addArchivesContactsList(bool isArchive, ContactModel contact, List<ContactModel> displayedContacts) async {
+  // Lista temporária para armazenar contatos a serem removidos
+  List<ContactModel> contactsToRemove = [];
+
+
+  if(isArchive){
+  contactsArchives.add(contact);  // Adiciona ao arquivo
+  contact.archive = isArchive;
+  }
+  // Atualiza os dados
+  showContactsArchives.clear();
+  showContactsArchives.addAll(contactsArchives);
+ 
+  
+  // Notifica os listeners após as mudanças
+  notifyListeners();
+
+}
+
+
+
 
 
 

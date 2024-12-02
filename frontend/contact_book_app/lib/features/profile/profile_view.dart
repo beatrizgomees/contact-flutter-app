@@ -1,3 +1,4 @@
+import 'package:contact_book_app/features/profile/profile_view_model.dart';
 import 'package:contact_book_app/features/shared/ui/commom/button_transparent_component.dart';
 import 'package:contact_book_app/features/shared/ui/commom/icon_button_component.dart';
 import 'package:contact_book_app/features/shared/ui/commom/info_card_component.dart';
@@ -6,121 +7,144 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
 
 class Profilepage extends StatefulWidget {
-  const Profilepage({super.key});
+   Profilepage({super.key});
 
   @override
   State<Profilepage> createState() => _ProfilepageState();
-}
+  }
+
+
+
 
 class _ProfilepageState extends State<Profilepage> {
+
   @override
   Widget build(BuildContext context) {
+
+    ProfileViewModel viewModel = context.watch<ProfileViewModel>();
+
     return Scaffold(
       backgroundColor: AppTheme.backgroundPrincipalColor,
       appBar: AppBar(
         backgroundColor:AppTheme.backgroundPrincipalColor,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.logout), color: Colors.white,)
+          IconButton(onPressed: () {
+            viewModel.logout(context);
+          }, icon: Icon(Icons.logout), color: Colors.white,)
         ],
       ),
-     body: Stack(
-       children: [
-        Center(
-         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              _buildTopSectionProfileView(context),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 20, right: 30, bottom: 50),
-              child: 
-              Column(
-              children: [
-               Text("Beatriz Gomes", 
-              style: AppTheme.titleProfileName),
-
-              const SizedBox(height: 20),
-              _buildListHorizontalOptions(context)
-              ]
-              ),
-            ),
-
-            
-               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 1.8,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40), 
-                    topRight: Radius.circular(40))
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+     body: SingleChildScrollView(
+       child: SafeArea(
+         child: ChangeNotifierProvider(
+          create: (context) => ProfileViewModel(),
+          child: Consumer<ProfileViewModel>(
+               builder: (context, viewModel, _) {
+          
+           return Stack(
+             children: [
+              Center(
+               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                  InfoCardComponent(pathImage: "assets/icons/telefone.png", info: "(81) 9 9166-4621",isContact: true),
-                  InfoCardComponent(pathImage: "assets/icons/o-email.png", info: "beatrizgomesxx@gmail.com",),
-                  const SizedBox(height: 10),
-                  
-                  _buildListHorizontalSocialMedia(context),
-
-                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    _buildTopSectionProfileView(context),
+           
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, top: 20, right: 30, bottom: 50),
+                    child: 
+                    Column(
                     children: [
-                     Padding(
-                       padding: EdgeInsets.all(8.0),
-                       child: Text('Settings', style: TextStyle(fontSize: 20),),
-                     ),
-                     
-                    ],
-                   ),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                     children: [
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: ButtonTransparentComponent(
-                          width: 130,
-                          height: 30,
-                          colorBorder: Color.fromRGBO(20, 29, 41,1),
-                          border: 20,
-                          title: 'Show online',
-                          colortitle: Colors.black,
-                          sizeTitle: 15,
-                          icon: Icons.mobile_off,
-                          iconSize: 20,
-                         ),
-                       ),
-                        Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ButtonTransparentComponent(
-                          width: 180,
-                          height: 30,
-                          colorBorder: Color.fromRGBO(20, 29, 41,1),
-                          border: 20,
-                          title: 'Show Notifications',
-                          colortitle: Colors.black,
-                          sizeTitle: 15,
-                          iconSize: 20,
-                          icon: Icons.notifications,
-                        ),
-                      )
-                     ],
-                   ), 
+                     Text("Beatriz Gomes", 
+                    style: AppTheme.titleProfileName),
+           
                    
+                    _buildListHorizontalOptions(context)
+                    ]
+                    ),
+                  ),
+           
+                  
+                     Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40), 
+                          topRight: Radius.circular(40))
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        InfoCardComponent(pathImage: "assets/icons/telefone.png", info: "(81) 9 9166-4621",isContact: true),
+                        InfoCardComponent(pathImage: "assets/icons/o-email.png", info: "beatrizgomesxx@gmail.com",),
+                        const SizedBox(height: 10),
+                        
+                        _buildListHorizontalSocialMedia(context),
+           
+                         const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                           Padding(
+                             padding: EdgeInsets.all(8.0),
+                             child: Text('Settings', style: TextStyle(fontSize: 20),),
+                           ),
+                           
+                          ],
+                         ),
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                           children: [
+                             Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: ButtonTransparentComponent(
+                                width: 130,
+                                height: 30,
+                                colorBorder: Color.fromRGBO(20, 29, 41,1),
+                                border: 20,
+                                title: 'Show online',
+                                colortitle: Colors.black,
+                                sizeTitle: 15,
+                                icon: Icons.mobile_off,
+                                iconSize: 20,
+                               ),
+                             ),
+                              Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ButtonTransparentComponent(
+                                width: 180,
+                                height: 30,
+                                colorBorder: Color.fromRGBO(20, 29, 41,1),
+                                border: 20,
+                                title: 'Show Notifications',
+                                colortitle: Colors.black,
+                                sizeTitle: 15,
+                                iconSize: 20,
+                                icon: Icons.notifications,
+                              ),
+                            )
+                           ],
+                         ), 
+                         
+                        ],
+                      ),
+                     )
                   ],
                 ),
-               )
-            ],
-          ),
+             ),
+             ],
+           );
+          }
+         ),
        ),
-       ],
-     ),
+       
+       ),
+     )
     );
   }
 }

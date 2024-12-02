@@ -1,4 +1,5 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
+import 'package:contact_book_app/features/shared/ui/widgets/navigation_bar.dart';
 import 'package:contact_book_app/features/shared/utils/navigators/navigator_to.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,10 @@ class LoginViewModel extends ChangeNotifier{
   }
 
   void NavigateToHome(BuildContext context){
-     navigateTo(context, "/home");
+    Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => NavigationBottomBar()),
+  );
   }
 
   Widget _title(){

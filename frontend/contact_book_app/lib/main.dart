@@ -7,6 +7,7 @@ import 'package:contact_book_app/features/notifications/notifications_view.dart'
 import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:contact_book_app/features/auth/login_view.dart';
+import 'package:contact_book_app/features/profile/profile_view_model.dart';
 import 'package:contact_book_app/features/register/register_view.dart';
 import 'package:contact_book_app/features/register/register_view_model.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/navigation_bar.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreateViewModel()),
-        ChangeNotifierProvider(create: (_) => RegisterViewModel())
+        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_) => ProfileViewModel())
       ],
       child: MaterialApp(
         //initialRoute: '/home',
@@ -78,16 +80,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: StreamBuilder(
-            stream: AuthServiceImpl().authStateChanges,
-            builder: (context, snapshot) {
-              if(snapshot.hasData){
-                return const NavigationBottomBar();
-              }else{
-                return const LoginView();
-              }
-            },
-          )),
+          home: NavigationBottomBar()),
     );
   }
 }
