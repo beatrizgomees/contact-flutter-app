@@ -1,4 +1,4 @@
-import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
+import 'package:contact_book_app/features/contact/views/create_contact_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

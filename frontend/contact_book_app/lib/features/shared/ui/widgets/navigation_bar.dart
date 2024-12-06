@@ -1,7 +1,7 @@
 import 'package:contact_book_app/features/call/call_history_view.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:contact_book_app/features/profile/profile_view.dart';
-import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
+import 'package:contact_book_app/features/contact/views/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
