@@ -1,4 +1,4 @@
-import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/utils/themes/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/domain/model/contact_model.dart';
-import 'package:contact_book_app/domain/service/contact_service_impl.dart';
-import 'package:contact_book_app/domain/service/image_service.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
+import 'package:contact_book_app/features/contact/service/contact_service_impl.dart';
+import 'package:contact_book_app/features/contact/service/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

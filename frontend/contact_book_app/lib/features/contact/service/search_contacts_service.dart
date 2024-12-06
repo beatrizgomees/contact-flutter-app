@@ -1,4 +1,4 @@
-import 'package:contact_book_app/domain/model/contact_model.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class SearchContactsService extends SearchDelegate{
   Widget buildSuggestions(BuildContext context) {
     results = contacts.where((ContactModel contact) {
     final String title = contact.name!.toLowerCase();
-    final int body = contact.phone!;
+    final String body = contact.phone!;
     final String input = query.toLowerCase();
 
     return title.contains(input) || body.toString().contains(input);

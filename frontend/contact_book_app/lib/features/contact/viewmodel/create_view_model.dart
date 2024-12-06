@@ -1,7 +1,7 @@
 import 'package:contact_book_app/features/shared/ui/commom/snackbar_component.dart';
-import 'package:contact_book_app/domain/model/contact_model.dart';
-import 'package:contact_book_app/domain/service/contact_service_impl.dart';
-import 'package:contact_book_app/domain/service/image_service.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
+import 'package:contact_book_app/features/contact/service/contact_service_impl.dart';
+import 'package:contact_book_app/features/contact/service/image_service.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,10 +26,10 @@ takeImage(XFile? photo) async {
 
 
 createContact(ContactModel contactModel) async {
-  contactModel.phone = int.parse(phoneController.text);
+  contactModel.phone = phoneController.text;
   contactModel.name = nameController.text;
   contactModel.email = emailController.text;
-  await contactService.createContact(contactModel);
+  await contactService.createContactFirebase(contactModel);
 
   await updateListContact();
   notifyListeners();
@@ -79,7 +79,7 @@ void snackBarMessageCreateContactViewError(BuildContext context, String message)
 void actionCreate(BuildContext context){
   ContactModel contactModel = ContactModel(
     name: nameController.text,
-    phone: int.parse(phoneController.text),
+    phone: phoneController.text,
     email: emailController.text,
   );
 

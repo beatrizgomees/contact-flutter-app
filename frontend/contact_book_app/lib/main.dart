@@ -1,10 +1,10 @@
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:contact_book_app/features/notifications/notifications_service.dart';
-import 'package:contact_book_app/features/contact_crud/create_view_model.dart';
+import 'package:contact_book_app/features/contact/viewmodel/create_view_model.dart';
 import 'package:contact_book_app/features/home/home_view_model.dart';
 import 'package:contact_book_app/features/auth/login_view_model.dart';
 import 'package:contact_book_app/features/notifications/notifications_view.dart';
-import 'package:contact_book_app/features/contact_crud/create_contact_view.dart';
+import 'package:contact_book_app/features/contact/views/create_contact_view.dart';
 import 'package:contact_book_app/features/home/home_view.dart';
 import 'package:contact_book_app/features/auth/login_view.dart';
 import 'package:contact_book_app/features/profile/profile_view_model.dart';
