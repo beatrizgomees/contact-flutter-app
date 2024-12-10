@@ -25,7 +25,7 @@ public class ContactController {
 
     @PostMapping
     public ResponseEntity<String> createContact(
-            @RequestHeader("Authorization") String authHeader,
+            @RequestHeader("authorization") String authHeader,
             @RequestBody ContactModel contactModel){
         try{
             String idToken = authHeader.replace("Bearer ", "");

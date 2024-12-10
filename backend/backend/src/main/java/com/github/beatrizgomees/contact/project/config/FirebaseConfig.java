@@ -9,24 +9,37 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Configuration
 public class FirebaseConfig {
-    @Value("classpath:/secret/google-services.json")
+    @Value("classpath:serviceAccountKey.json")
     private Resource privateKey;
 
     @Bean
-    public FirebaseApp firebaseApp() throws IOException {
-        InputStream credentials = new ByteArrayInputStream(privateKey.getContentAsByteArray());
-        FirebaseOptions firebaseOptions = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(credentials))
-                .build();
-        return FirebaseApp.initializeApp(firebaseOptions);
+    public void firebaseApp() throws IOException {
+        try {
+            FileInputStream serviceAccount = new FileInputStream(privateKey.getFile());
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+
+
+            FirebaseApp.initializeApp(options);
+            FirebaseApp.initializeApp(options);
+        } catch (
+                Exception error) {
+            error.printStackTrace();
+        }
     }
 
-    @Bean
-    public FirebaseAuth firebaseAuth(FirebaseApp firebaseApp) {
-        return FirebaseAuth.getInstance(firebaseApp);
-    }
+
+
+//    @Bean
+//    public FirebaseAuth firebaseAuth(FirebaseApp firebaseApp) {
+//        return FirebaseAuth.getInstance(firebaseApp);
+//    }
+
 }

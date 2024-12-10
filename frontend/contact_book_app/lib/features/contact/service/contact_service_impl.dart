@@ -48,7 +48,7 @@ class ContactServiceImpl  implements ContactService {
           return;
         }
         final headers = {
-            'Authorization': 'Bearer $token',
+            'authorization': 'Bearer $token',
             'Content-Type': 'application/json',
         };
         
