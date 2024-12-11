@@ -1,4 +1,5 @@
 import 'package:contact_book_app/features/auth/auth_service.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServiceImpl implements AuthService{
@@ -19,13 +20,12 @@ class AuthServiceImpl implements AuthService{
   
   @override
   Future<void> createUserWithEmailAndPassword({
-    required String email, 
-    required String password,
+    required ContactModel contact
     
     }) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email, 
-      password: password,
+      email: contact.email!, 
+      password: contact.password!,
     );
   }
   

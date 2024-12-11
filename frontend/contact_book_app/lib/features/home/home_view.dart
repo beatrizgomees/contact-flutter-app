@@ -1,6 +1,6 @@
 import 'package:contact_book_app/features/chat/chat_view.dart';
-import 'package:contact_book_app/domain/model/contact_model.dart';
-import 'package:contact_book_app/domain/service/search_contacts_service.dart';
+import 'package:contact_book_app/features/contact/model/contact_model.dart';
+import 'package:contact_book_app/features/contact/service/search_contacts_service.dart';
 import 'package:contact_book_app/features/home/search_contact_list_view.dart';
 import 'package:contact_book_app/features/shared/ui/commom/card_contact_component.dart';
 import 'package:contact_book_app/features/shared/ui/widgets/dimissible_button_widget.dart';
