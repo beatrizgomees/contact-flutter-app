@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_book_app/domain/model/user_model.dart';
+import 'package:contact_book_app/features/auth/model/user_model.dart';
 import 'package:contact_book_app/features/register/register_service.dart';
 import 'package:contact_book_app/features/shared/utils/constants/constants.dart';
 

@@ -1,4 +1,4 @@
-import 'package:contact_book_app/domain/model/user_model.dart';
+import 'package:contact_book_app/features/auth/model/user_model.dart';
 import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:contact_book_app/features/contact/service/contact_service_impl.dart';
@@ -39,7 +39,6 @@ class RegisterViewModel extends ChangeNotifier{
     );
 
     contactServiceImpl.createContactFirebase(contact);
-    contactServiceImpl.createContactBackend(contact);
     
 
     notifyListeners();

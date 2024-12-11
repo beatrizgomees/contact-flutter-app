@@ -1,7 +1,7 @@
 package com.github.beatrizgomees.contact.project.controller;
 
-import com.github.beatrizgomees.contact.project.domain.ChatInput;
-import com.github.beatrizgomees.contact.project.domain.ChatOutput;
+import com.github.beatrizgomees.contact.project.domain.chat.ChatInput;
+import com.github.beatrizgomees.contact.project.domain.chat.ChatOutput;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

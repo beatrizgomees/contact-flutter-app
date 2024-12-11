@@ -1,14 +1,11 @@
-import 'dart:convert';
-import 'dart:developer';
+
 import 'dart:ffi';
-import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_book_app/features/contact/service/contact_service.dart';
 import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:contact_book_app/features/shared/utils/constants/constants.dart';
-import 'package:gallery_saver/files.dart';
 
 class ContactServiceImpl  implements ContactService {
   
@@ -34,36 +31,7 @@ class ContactServiceImpl  implements ContactService {
 
   }
 
-  @override
-  Future<void> createContactBackend(ContactModel contactModel) async {
-   
-    var response;
-    try {
 
-        // Obtenha o token do Firebase
-        final token = await getFirebaseToken();
-      
-        if (token == null) {
-          print('Usuário não autenticado');
-          return;
-        }
-        final headers = {
-            'authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-        };
-        
-        response = await http.post(
-          Uri.parse(Constants.conectionBackendURL),
-          headers: headers,
-          body: jsonEncode(contactModel.toJson()),
-        );
-        if (response.statusCode == 201) {
-          log(response.body);
-        }
-      } catch (e) {
-        throw Exception('Error: $e, ${response.statusCode}');
-      }
-  }
   
   @override
   Future<void> deleteContact(Long id) {

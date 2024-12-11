@@ -1,11 +1,10 @@
 package com.github.beatrizgomees.contact.project.controller;
 
-import com.github.beatrizgomees.contact.project.domain.ContactModel;
+import com.github.beatrizgomees.contact.project.domain.contact.Contact;
 import com.github.beatrizgomees.contact.project.service.ContactService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ public class ContactController {
     @PostMapping
     public ResponseEntity<String> createContact(
             @RequestHeader("authorization") String authHeader,
-            @RequestBody ContactModel contactModel){
+            @RequestBody Contact contactModel){
         try{
             String idToken = authHeader.replace("Bearer ", "");
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);

@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.contact.project.domain;
+package com.github.beatrizgomees.contact.project.domain.contact;
 
 
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Document(collection = "contacts")
 @Data
-public class ContactModel {
+public class Contact {
     @Id
     String objectId;
     String name;
@@ -84,7 +84,7 @@ public class ContactModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactModel that = (ContactModel) o;
+        Contact that = (Contact) o;
         return favorite == that.favorite && archive == that.archive && Objects.equals(objectId, that.objectId) && Objects.equals(name, that.name) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(photo, that.photo);
     }
 

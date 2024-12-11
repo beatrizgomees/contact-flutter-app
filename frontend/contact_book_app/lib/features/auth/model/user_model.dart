@@ -1,37 +1,30 @@
 class UserModel{
-  String? objectId;
+
   String? email;
   String? password;
-  String? name;
-  String? phone;
+  String? token;
 
 
   UserModel({
-  this.objectId,
-  this.name,
   this.password,
   this.email,
-  this.phone
+  this.token
     });
     
 
   
   factory UserModel.fromMap(Map<String, dynamic> data) {
   return UserModel(
-    objectId: data['objectId'],
-    name: data['name'],
     email: data['email'],
     password: data['password'],
-    phone: data['phone']
+    token: data['token']
   );
 }
 
  Map<String, dynamic> toMap() {
     return {
-      'objectId': objectId,
-      'name': name,
       'password': password,
-      'phone': phone,
+      'token': token,
       'email': email,
       
     };
