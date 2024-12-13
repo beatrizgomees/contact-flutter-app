@@ -1,5 +1,3 @@
-import 'package:contact_book_app/features/auth/model/user_model.dart';
-import 'package:contact_book_app/features/auth/auth_service_impl.dart';
 import 'package:contact_book_app/features/contact/model/contact_model.dart';
 import 'package:contact_book_app/features/contact/service/contact_service_impl.dart';
 import 'package:contact_book_app/features/register/register_service_impl.dart';
@@ -16,7 +14,6 @@ class RegisterViewModel extends ChangeNotifier{
   TextEditingController confirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   String? errorMessage = '';
-  AuthServiceImpl authServiceImpl = AuthServiceImpl();
   RegisterServiceImpl registerServiceImpl = RegisterServiceImpl();
   ContactServiceImpl contactServiceImpl = ContactServiceImpl();
 
@@ -24,7 +21,7 @@ class RegisterViewModel extends ChangeNotifier{
    
   
     try {
-      await authServiceImpl.createUserWithEmailAndPassword(
+      await registerServiceImpl.createUserWithEmailAndPassword(
       contact: ContactModel(
         email: emailController.text,
         password: passwordController.text

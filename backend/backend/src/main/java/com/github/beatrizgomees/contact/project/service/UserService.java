@@ -2,6 +2,7 @@ package com.github.beatrizgomees.contact.project.service;
 
 import com.github.beatrizgomees.contact.project.domain.user.User;
 import com.github.beatrizgomees.contact.project.domain.user.UserDAO;
+import com.github.beatrizgomees.contact.project.domain.user.UserDTO;
 import com.github.beatrizgomees.contact.project.domain.user.UserMapper;
 import com.github.beatrizgomees.contact.project.repository.user.IMongoRepositoryUser;
 import com.github.beatrizgomees.contact.project.repository.user.IUserRepository;
@@ -18,6 +19,20 @@ public class UserService implements IUserRepository {
     public UserService(IMongoRepositoryUser mongoRepositoryUser, UserMapper userMapper) {
         this.userMapper = userMapper;
         this.mongoRepositoryUser = mongoRepositoryUser;
+    }
+
+
+    public void convertUserDTOToUser(UserDTO userDTO) {
+        if (userDTO == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        try{
+            User user = userMapper.convertUserDTOToUser(userDTO);
+            save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
